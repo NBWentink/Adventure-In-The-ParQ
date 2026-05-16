@@ -88,6 +88,9 @@
       transform-origin: 50% 50%;
       transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
+    .achtergrond-img {
+      transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
+    }
 
     .jungle-bg-overlay {
       position: absolute;
@@ -1037,6 +1040,11 @@
 <script>
   // ── Navigatie ──
   const ANIM_MS = 260;
+  const SCREEN_ORDER = ['screen-01','screen-02','screen-03','screen-04','screen-05','screen-06','screen-07','screen-09','screen-10','screen-11','screen-12','screen-13'];
+  let bgOffset = 0;
+
+  // Klasse toevoegen aan alle achtergrond-afbeeldingen voor smooth transitie
+  document.querySelectorAll('img[src*="achtergrond"]').forEach(el => el.classList.add('achtergrond-img'));
 
   function isShared(el) {
     if (!el || el.nodeType !== 1) return true;
@@ -1063,14 +1071,26 @@
     const next    = document.getElementById(screenId);
     if (!next || current === next) return;
 
-    // Grond rotatie
-    groundRotation += 20;
+    // Richting bepalen op basis van schermvolgorde
+    const currentIdx = SCREEN_ORDER.indexOf(current.id);
+    const nextIdx    = SCREEN_ORDER.indexOf(screenId);
+    const forward    = nextIdx >= currentIdx;
+
+    // Grond rotatie: vooruit = tegen de klok in (negatief), terug = met de klok mee
+    groundRotation += forward ? -20 : 20;
     document.querySelectorAll('.grond-img').forEach(el => {
       el.style.transform = `rotate(${groundRotation}deg)`;
     });
+
+    // Achtergrond verschuiving: vooruit = 200px links, terug = 200px rechts
+    bgOffset += forward ? -200 : 200;
+    document.querySelectorAll('.achtergrond-img').forEach(el => {
+      el.style.transform = `translateX(${bgOffset}px)`;
+    });
+
     // Jungle parallax
     if (jungleActive) {
-      jungleBgOffset += 100;
+      jungleBgOffset += forward ? 100 : -100;
       document.querySelectorAll('.jungle-bg-overlay').forEach(el => {
         el.style.backgroundPositionX = `-${jungleBgOffset}px`;
       });
