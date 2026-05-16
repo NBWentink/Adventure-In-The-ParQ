@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=834, shrink-to-fit=no, user-scalable=no">
   <title>Walk in the ParQ – Prototype</title>
   <style>
     @font-face {
@@ -99,6 +99,7 @@
       color: #2d6a2f;
       font-weight: 400;
       text-transform: uppercase;
+      white-space: nowrap;
     }
     .btn-volgende .arrow-right {
       width: 31px;
@@ -144,6 +145,7 @@
       color: #2d6a2f;
       font-weight: 400;
       text-transform: uppercase;
+      white-space: nowrap;
     }
 
     .page-title {
@@ -1093,14 +1095,6 @@
     document.getElementById('adv-groups').textContent = adv.groups;
   }
 
-  // ── Schaalberekening ──
-  function updateScale() {
-    const app = document.getElementById('app');
-    app.style.zoom = window.innerWidth / 834;
-  }
-  window.addEventListener('resize', updateScale);
-  window.addEventListener('load', updateScale);
-  updateScale();
 
   // ── Opdracht Stop-Motion (scherm 09) ──
   let opdrachtStates = [
@@ -1306,6 +1300,19 @@
       if (v) { v.srcObject = null; v.load(); }
     });
   }
+  // Blokkeer pinch-zoom en dubbeltik-zoom in Safari
+  document.addEventListener('gesturestart', e => e.preventDefault());
+  document.addEventListener('gesturechange', e => e.preventDefault());
+  document.addEventListener('gestureend', e => e.preventDefault());
+  document.addEventListener('touchstart', e => {
+    if (e.touches.length > 1) e.preventDefault();
+  }, { passive: false });
+  let lastTap = 0;
+  document.addEventListener('touchend', e => {
+    const now = Date.now();
+    if (now - lastTap < 300) e.preventDefault();
+    lastTap = now;
+  }, { passive: false });
 </script>
 
 </div>
