@@ -1108,6 +1108,18 @@
   ];
   let selectedAvontuur = 0;
 
+  // ── Grond & Jungle globals ──
+  let groundRotation = 0;
+  let jungleActive = false;
+  let jungleBgOffset = 0;
+
+  // Injecteer jungle-bg-overlay in elk scherm
+  document.querySelectorAll('.screen').forEach(screen => {
+    const overlay = document.createElement('div');
+    overlay.className = 'jungle-bg-overlay';
+    screen.insertBefore(overlay, screen.firstChild);
+  });
+
   // ── Avontuur Keuze (scherm 04) ──
   function selectAvontuur(idx) {
     selectedAvontuur = idx;
@@ -1133,18 +1145,6 @@
     document.getElementById('adv-groups').textContent = adv.groups;
   }
 
-
-  // ── Grond & Jungle globals ──
-  let groundRotation = 0;
-  let jungleActive = false;
-  let jungleBgOffset = 0;
-
-  // Injecteer jungle-bg-overlay in elk scherm
-  document.querySelectorAll('.screen').forEach(screen => {
-    const overlay = document.createElement('div');
-    overlay.className = 'jungle-bg-overlay';
-    screen.insertBefore(overlay, screen.firstChild);
-  });
 
   // ── Opdracht Stop-Motion (scherm 09) ──
   let opdrachtStates = [
