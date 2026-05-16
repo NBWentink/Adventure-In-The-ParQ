@@ -80,8 +80,10 @@
     }
     .screen.active { display: block; }
 
-    @keyframes contentIn  { from { transform: translateX(834px); } to { transform: translateX(0); } }
-    @keyframes contentOut { from { transform: translateX(0); } to { transform: translateX(-834px); } }
+    @keyframes contentIn      { from { transform: translateX(834px);  } to { transform: translateX(0); } }
+    @keyframes contentOut     { from { transform: translateX(0); } to { transform: translateX(-834px); } }
+    @keyframes contentInLeft  { from { transform: translateX(-834px); } to { transform: translateX(0); } }
+    @keyframes contentOutRight{ from { transform: translateX(0); } to { transform: translateX(834px);  } }
 
     /* ─── GROND & JUNGLE ─── */
     .grond-img {
@@ -1102,8 +1104,10 @@
     if (navBtn) navBtn.classList.add('active');
 
     // Content huidig scherm uit-animeren
+    const animOut = forward ? 'contentOut' : 'contentOutRight';
+    const animIn  = forward ? 'contentIn'  : 'contentInLeft';
     contentEls(current).forEach(el => {
-      el.style.animation = `contentOut ${ANIM_MS}ms ease-in forwards`;
+      el.style.animation = `${animOut} ${ANIM_MS}ms ease-in forwards`;
     });
 
     setTimeout(() => {
@@ -1122,7 +1126,7 @@
 
       // Content nieuw scherm in-animeren
       contentEls(next).forEach(el => {
-        el.style.animation = `contentIn ${ANIM_MS}ms ease-out forwards`;
+        el.style.animation = `${animIn} ${ANIM_MS}ms ease-out forwards`;
       });
       setTimeout(() => {
         contentEls(next).forEach(el => { el.style.animation = ''; });
