@@ -80,24 +80,8 @@
     }
     .screen.active { display: block; }
 
-    @keyframes slideInRight {
-      from { transform: translateX(100%); }
-      to   { transform: translateX(0);    }
-    }
-    @keyframes slideOutLeft {
-      from { transform: translateX(0);    }
-      to   { transform: translateX(-100%); }
-    }
-    .screen.slide-in {
-      display: block;
-      animation: slideInRight 0.32s ease-out forwards;
-      z-index: 2;
-    }
-    .screen.slide-out {
-      display: block;
-      animation: slideOutLeft 0.32s ease-out forwards;
-      z-index: 1;
-    }
+    @keyframes contentIn  { from { transform: translateX(834px); } to { transform: translateX(0); } }
+    @keyframes contentOut { from { transform: translateX(0); } to { transform: translateX(-834px); } }
 
     /* ─── GROND & JUNGLE ─── */
     .grond-img {
@@ -1052,6 +1036,28 @@
 <script src="https://cdn.jsdelivr.net/npm/jsqr@1.4.0/dist/jsQR.min.js"></script>
 <script>
   // ── Navigatie ──
+  const ANIM_MS = 260;
+
+  function isShared(el) {
+    if (!el || el.nodeType !== 1) return true;
+    const cls = el.classList;
+    if (cls.contains('btn-vorige'))       return true;
+    if (cls.contains('btn-volgende'))     return true;
+    if (cls.contains('grond-img'))        return true;
+    if (cls.contains('jungle-bg-overlay'))return true;
+    if (cls.contains('page-title'))       return true;
+    if (cls.contains('progressiebalk'))   return true;
+    if (el.tagName === 'IMG') {
+      const src = el.getAttribute('src') || '';
+      if (src.includes('achtergrond') || src.includes('wolken')) return true;
+    }
+    return false;
+  }
+
+  function contentEls(screen) {
+    return Array.from(screen.children).filter(el => !isShared(el));
+  }
+
   function navigate(screenId) {
     const current = document.querySelector('.screen.active');
     const next    = document.getElementById(screenId);
@@ -1062,7 +1068,7 @@
     document.querySelectorAll('.grond-img').forEach(el => {
       el.style.transform = `rotate(${groundRotation}deg)`;
     });
-    // Jungle achtergrond parallax
+    // Jungle parallax
     if (jungleActive) {
       jungleBgOffset += 100;
       document.querySelectorAll('.jungle-bg-overlay').forEach(el => {
@@ -1070,31 +1076,39 @@
       });
     }
 
-    // Nav-knop bijwerken
+    // Nav-knop
     document.querySelectorAll('.screen-nav button').forEach(b => b.classList.remove('active'));
     const navBtn = document.getElementById('nav-' + screenId.replace('screen-', ''));
     if (navBtn) navBtn.classList.add('active');
 
-    // Scherm-specifieke acties alvast uitvoeren
-    if (screenId === 'screen-05') updateScreen5();
-    if (screenId === 'screen-09') startOpdrachtAnim();
-    else stopOpdrachtAnim();
-    if (screenId === 'screen-07') startCamera('qr-video-07', 'qr-status-07', 'screen-09');
-    else if (screenId === 'screen-13') startCamera('qr-video-13', 'qr-status-13', 'screen-01');
-    else stopCamera();
-
-    // Slide-animatie
-    if (current) {
-      current.classList.remove('active');
-      current.classList.add('slide-out');
-    }
-    next.classList.add('slide-in');
+    // Content huidig scherm uit-animeren
+    contentEls(current).forEach(el => {
+      el.style.animation = `contentOut ${ANIM_MS}ms ease-in forwards`;
+    });
 
     setTimeout(() => {
-      if (current) current.classList.remove('slide-out');
-      next.classList.remove('slide-in');
+      // Wissel scherm
+      current.classList.remove('active');
+      contentEls(current).forEach(el => { el.style.animation = ''; });
       next.classList.add('active');
-    }, 320);
+
+      // Scherm-specifieke acties
+      if (screenId === 'screen-05') updateScreen5();
+      if (screenId === 'screen-09') startOpdrachtAnim();
+      else stopOpdrachtAnim();
+      if (screenId === 'screen-07') startCamera('qr-video-07', 'qr-status-07', 'screen-09');
+      else if (screenId === 'screen-13') startCamera('qr-video-13', 'qr-status-13', 'screen-01');
+      else stopCamera();
+
+      // Content nieuw scherm in-animeren
+      contentEls(next).forEach(el => {
+        el.style.animation = `contentIn ${ANIM_MS}ms ease-out forwards`;
+      });
+      setTimeout(() => {
+        contentEls(next).forEach(el => { el.style.animation = ''; });
+      }, ANIM_MS);
+
+    }, ANIM_MS);
   }
   document.getElementById('nav-01').classList.add('active');
 
