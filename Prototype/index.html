@@ -19,11 +19,14 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      padding: 24px 0 48px;
+      padding: 0;
+      overflow: hidden;
+      height: 100vh;
     }
 
     #app {
       width: 834px;
+      flex-shrink: 0;
     }
 
     .screen-nav {
@@ -31,11 +34,12 @@
       gap: 6px;
       flex-wrap: nowrap;
       justify-content: flex-start;
-      width: 834px;
-      margin-bottom: 12px;
+      width: 100%;
+      padding: 6px 8px;
       overflow-x: auto;
       scrollbar-width: thin;
       scrollbar-color: #555 #1c1c1c;
+      flex-shrink: 0;
     }
     .screen-nav::-webkit-scrollbar { height: 4px; }
     .screen-nav::-webkit-scrollbar-track { background: #1c1c1c; }
@@ -473,9 +477,8 @@
   </style>
 </head>
 <body>
-<div id="app">
 
-<!-- Schermnavigatie -->
+<!-- Schermnavigatie (buiten #app zodat het de schaalberekening niet verstoort) -->
 <div class="screen-nav">
   <button onclick="navigate('screen-01')" id="nav-01">01 Start</button>
   <button onclick="navigate('screen-02')" id="nav-02">02 Groep</button>
@@ -493,6 +496,8 @@
   <button onclick="navigate('screen-12')" id="nav-12">12 Zoek QR2</button>
   <button onclick="navigate('screen-13')" id="nav-13">13 Scan QR2</button>
 </div>
+
+<div id="app">
 
 <!-- ════════════════════════════════════════════
      01 | STARTSCHERM A
@@ -1084,10 +1089,12 @@
 
   // ── Schaalberekening ──
   function updateScale() {
+    const nav = document.querySelector('.screen-nav');
     const app = document.getElementById('app');
     app.style.zoom = 1;
+    const availH = window.innerHeight - nav.offsetHeight;
     const scaleX = window.innerWidth / 834;
-    const scaleY = window.innerHeight / app.offsetHeight;
+    const scaleY = availH / 1194;
     app.style.zoom = Math.min(scaleX, scaleY);
   }
   window.addEventListener('resize', updateScale);
