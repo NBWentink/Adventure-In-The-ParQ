@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta name="viewport" content="width=834, user-scalable=no">
   <title>Walk in the ParQ – Prototype</title>
   <style>
     @font-face {
@@ -19,8 +19,11 @@
       display: flex;
       flex-direction: column;
       align-items: center;
-      min-height: 100vh;
       padding: 24px 0 48px;
+    }
+
+    #app {
+      width: 834px;
     }
 
     .screen-nav {
@@ -470,6 +473,7 @@
   </style>
 </head>
 <body>
+<div id="app">
 
 <!-- Schermnavigatie -->
 <div class="screen-nav">
@@ -1283,5 +1287,7 @@
     });
   }
 </script>
+
+</div>
 </body>
 </html>
