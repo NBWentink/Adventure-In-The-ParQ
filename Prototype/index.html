@@ -1303,16 +1303,17 @@
   }
   // ── Schaalberekening ──
   function updateScale() {
+    const PADDING = 16;
     const nav = document.querySelector('.screen-nav');
     const navH = nav.offsetHeight;
     const app = document.getElementById('app');
-    const availW = window.innerWidth;
-    const availH = window.innerHeight - navH;
-    const scale = Math.min(availW / 834, availH / 1194);
-    const left = (availW - 834 * scale) / 2;
+    const availW = window.innerWidth  - PADDING * 2;
+    const availH = window.innerHeight - navH - PADDING * 2;
+    const scale  = Math.min(availW / 834, availH / 1194);
+    const left   = (window.innerWidth - 834 * scale) / 2;
     app.style.transform = `scale(${scale})`;
     app.style.left = left + 'px';
-    app.style.top = navH + 'px';
+    app.style.top  = (navH + PADDING) + 'px';
   }
   window.addEventListener('resize', updateScale);
   window.addEventListener('load', updateScale);
