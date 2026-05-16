@@ -897,8 +897,9 @@
 
   <!-- Opdracht tekst box -->
   <div class="opdracht-text-box layer" style="left:62px;top:775px;width:710px;height:auto;min-height:130px;">
-    <p id="opdracht-instructie">Oh nee! Er stroomt hier een grote rivier, daar moeten we overheen! Spring 10 keer zo vér als dat je kan heen en weer!</p>
-    <div class="btn-audio" onclick="">
+    <p id="opdracht-instructie">Oh nee! Er stroomt hier een grote rivier, daar moeten we overheen! Spring 10 keer zo ver als je kan heen en weer!</p>
+    <audio id="audio-opdracht" src="assets/opdracht-1.mp3"></audio>
+    <div class="btn-audio" id="btn-audio-opdracht" onclick="toggleAudio('audio-opdracht','btn-audio-opdracht')">
       <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
         <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
         <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
@@ -1094,6 +1095,8 @@
   // ── Navigatie ──
   const ANIM_MS = 260;
   const SCREEN_ORDER = ['screen-01','screen-02','screen-03','screen-04','screen-05','screen-06','screen-07','screen-09','screen-10','screen-11','screen-12','screen-13'];
+  const ICON_PLAY  = `<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>`;
+  const ICON_PAUSE = `<rect x="5" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/><rect x="15" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/>`;
   let bgOffset = 0;
 
   // Klasse toevoegen aan alle achtergrond-afbeeldingen voor smooth transitie
@@ -1309,7 +1312,7 @@
       id: 1,
       titel: 'Opdracht 1',
       naam: 'Rivier',
-      instructie: 'Oh nee! Er stroomt hier een grote rivier, daar moeten we overheen! Spring 10 keer zo vér als dat je kan heen en weer!',
+      instructie: 'Oh nee! Er stroomt hier een grote rivier, daar moeten we overheen! Spring 10 keer zo ver als je kan heen en weer!',
       voltooid: 'Dat hebben jullie goed gedaan! We zijn aan de overkant.',
       voortgangTekst: 'Jullie zijn goed bezig! Ga door naar de volgende opdracht en help Finn verder in de jungle!',
       isLaatste: false,
@@ -1364,6 +1367,16 @@
     // Screen 09 — titel en instructie
     document.getElementById('opdracht-titel').textContent = opdracht.titel;
     document.getElementById('opdracht-instructie').textContent = opdracht.instructie;
+
+    // Audio wisselen per opdracht
+    const audioOpdracht = document.getElementById('audio-opdracht');
+    if (audioOpdracht) {
+      audioOpdracht.pause();
+      audioOpdracht.src = 'assets/opdracht-' + id + '.mp3';
+      audioOpdracht.load();
+      const btnSvg = document.querySelector('#btn-audio-opdracht svg');
+      if (btnSvg) btnSvg.innerHTML = ICON_PLAY;
+    }
 
     // Screen 09 — progressiebalk (4 segmenten)
     for (let i = 1; i <= 4; i++) {
@@ -1484,9 +1497,6 @@
   }
   // ── Schaalberekening ──
   // ─── AUDIO TOGGLE ───
-  const ICON_PLAY = `<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>`;
-  const ICON_PAUSE = `<rect x="5" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/><rect x="15" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/>`;
-
   function toggleAudio(audioId, btnId) {
     const audio = document.getElementById(audioId);
     const icon  = document.querySelector('#' + btnId + ' svg');
