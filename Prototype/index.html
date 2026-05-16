@@ -2,7 +2,7 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=834, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, user-scalable=no">
   <title>Walk in the ParQ – Prototype</title>
   <style>
     @font-face {
@@ -1081,6 +1081,18 @@
     document.getElementById('adv-duration').textContent = adv.duration;
     document.getElementById('adv-groups').textContent = adv.groups;
   }
+
+  // ── Schaalberekening ──
+  function updateScale() {
+    const app = document.getElementById('app');
+    app.style.zoom = 1;
+    const scaleX = window.innerWidth / 834;
+    const scaleY = window.innerHeight / app.offsetHeight;
+    app.style.zoom = Math.min(scaleX, scaleY);
+  }
+  window.addEventListener('resize', updateScale);
+  window.addEventListener('load', updateScale);
+  updateScale();
 
   // ── Opdracht Stop-Motion (scherm 09) ──
   let opdrachtStates = [
