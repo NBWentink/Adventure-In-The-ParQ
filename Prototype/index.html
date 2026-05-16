@@ -499,16 +499,31 @@
       background: #d6edd7;
       border-radius: 20px;
       display: flex;
+      flex-direction: row;
       align-items: center;
-      justify-content: center;
-      padding: 25px 30px;
+      gap: 20px;
+      padding: 25px 28px;
     }
     .opdracht-text-box p {
+      flex: 1;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 24px;
       color: #000;
       text-align: center;
       line-height: 1.5;
+    }
+    .btn-audio {
+      flex-shrink: 0;
+      width: 75px;
+      height: 75px;
+      background: #f5c800;
+      border-radius: 100px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      user-select: none;
+      box-shadow: 5px 5px 0 rgba(0,0,0,0.25);
     }
 
     /* ─── SCREEN 11 voortgang-tekst ─── */
@@ -682,7 +697,7 @@
     <div class="avcard-img" style="background-image:url('assets/Jungle_Achtergrond.png');"></div>
     <div class="avcard-body">
       <div class="avcard-title">Jungle Expeditie</div>
-      <div class="avcard-desc">Ontdekkingsreizigers in de jungle! Swing aan lianen, spring over rivieren en vind de verloren tempel. Maar pas op voor de wilde dieren...</div>
+      <div class="avcard-desc">Jullie zijn ontdekkingsreizigers in de jungle! Spring over rivieren en stamp als een olifant om Finn door de jungle heen te helpen! Maar pas op voor de wilde dieren...</div>
       <div class="avcard-badges">
         <span class="avcard-badge"><span class="sf-icon sf-clock"></span> 30 MIN</span>
         <span class="avcard-badge"><span class="sf-icon sf-qrcode"></span> 8</span>
@@ -875,6 +890,13 @@
   <!-- Opdracht tekst box -->
   <div class="opdracht-text-box layer" style="left:62px;top:775px;width:710px;height:auto;min-height:130px;">
     <p id="opdracht-instructie">Oh nee! Er stroomt hier een grote rivier, daar moeten we overheen! Spring 10 keer zo vér als dat je kan heen en weer!</p>
+    <div class="btn-audio" onclick="">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
   </div>
 
   <!-- Volgende -->
@@ -926,6 +948,13 @@
   <!-- Voltooiing tekst box -->
   <div class="opdracht-text-box layer" style="left:62px;top:755px;width:710px;height:auto;min-height:150px;">
     <p id="opdracht-voltooid-tekst">Dat hebben jullie goed gedaan! We zijn aan de overkant.</p>
+    <div class="btn-audio" onclick="">
+      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
+        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+      </svg>
+    </div>
   </div>
 
   <!-- Volgende -->
