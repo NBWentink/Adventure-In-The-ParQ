@@ -33,7 +33,9 @@
     #app {
       position: absolute;
       width: 834px;
+      height: 1194px;
       transform-origin: top left;
+      overflow: hidden;
     }
 
     .screen-nav {
@@ -69,13 +71,33 @@
     .screen {
       width: 834px;
       height: 1194px;
-      position: relative;
+      position: absolute;
+      top: 0;
+      left: 0;
       background: #b5dced;
       overflow: hidden;
       display: none;
-      flex-shrink: 0;
     }
     .screen.active { display: block; }
+
+    @keyframes slideInRight {
+      from { transform: translateX(100%); }
+      to   { transform: translateX(0);    }
+    }
+    @keyframes slideOutLeft {
+      from { transform: translateX(0);    }
+      to   { transform: translateX(-100%); }
+    }
+    .screen.slide-in {
+      display: block;
+      animation: slideInRight 0.32s ease-out forwards;
+      z-index: 2;
+    }
+    .screen.slide-out {
+      display: block;
+      animation: slideOutLeft 0.32s ease-out forwards;
+      z-index: 1;
+    }
 
     /* ─── GROND & JUNGLE ─── */
     .grond-img {
@@ -1031,6 +1053,10 @@
 <script>
   // ── Navigatie ──
   function navigate(screenId) {
+    const current = document.querySelector('.screen.active');
+    const next    = document.getElementById(screenId);
+    if (!next || current === next) return;
+
     // Grond rotatie
     groundRotation += 20;
     document.querySelectorAll('.grond-img').forEach(el => {
@@ -1043,21 +1069,32 @@
         el.style.backgroundPositionX = `-${jungleBgOffset}px`;
       });
     }
-    document.querySelectorAll('.screen').forEach(s => s.classList.remove('active'));
+
+    // Nav-knop bijwerken
     document.querySelectorAll('.screen-nav button').forEach(b => b.classList.remove('active'));
-    document.getElementById(screenId).classList.add('active');
-    const num = screenId.replace('screen-', '');
-    const navBtn = document.getElementById('nav-' + num);
+    const navBtn = document.getElementById('nav-' + screenId.replace('screen-', ''));
     if (navBtn) navBtn.classList.add('active');
-    window.scrollTo({ top: 0, behavior: 'smooth' });
-    // Scherm-specifieke acties
+
+    // Scherm-specifieke acties alvast uitvoeren
     if (screenId === 'screen-05') updateScreen5();
     if (screenId === 'screen-09') startOpdrachtAnim();
     else stopOpdrachtAnim();
-    // Camera: starten bij scanner-schermen, stoppen bij andere schermen
     if (screenId === 'screen-07') startCamera('qr-video-07', 'qr-status-07', 'screen-09');
     else if (screenId === 'screen-13') startCamera('qr-video-13', 'qr-status-13', 'screen-01');
     else stopCamera();
+
+    // Slide-animatie
+    if (current) {
+      current.classList.remove('active');
+      current.classList.add('slide-out');
+    }
+    next.classList.add('slide-in');
+
+    setTimeout(() => {
+      if (current) current.classList.remove('slide-out');
+      next.classList.remove('slide-in');
+      next.classList.add('active');
+    }, 320);
   }
   document.getElementById('nav-01').classList.add('active');
 
