@@ -778,8 +778,9 @@
   <div class="adventure-info-card layer" style="left:62px;top:641px;width:711px;height:325px;">
     <h3 id="adv-title">Jungle Expeditie</h3>
     <p id="adv-desc">Jullie zijn ontdekkingsreizigers in de jungle. Help mij met de verloren tempel te vinden door liaan te zwaaien en te springen over rivieren. Maar doe voorzichtig! Er slapen namelijk veel gevaarlijke dieren in de jungle... Help je mee?</p>
-    <div class="btn-audio" style="position:absolute;right:22px;bottom:22px;" onclick="">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+    <audio id="audio-avontuur" src="assets/jungle-avontuur.mp3"></audio>
+    <div class="btn-audio" id="btn-audio-avontuur" style="position:absolute;right:22px;bottom:22px;" onclick="toggleAudio('audio-avontuur','btn-audio-avontuur')">
+      <svg id="icon-audio-avontuur" width="34" height="34" viewBox="0 0 24 24" fill="none">
         <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
         <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
         <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
@@ -1148,6 +1149,12 @@
       });
     }
 
+    // Stop eventuele lopende audio
+    document.querySelectorAll('audio').forEach(a => {
+      if (!a.paused) { a.pause(); a.currentTime = 0; }
+    });
+    document.querySelectorAll('.btn-audio svg').forEach(svg => { svg.innerHTML = ICON_PLAY; });
+
     // Nav-knop
     document.querySelectorAll('.screen-nav button').forEach(b => b.classList.remove('active'));
     const navBtn = document.getElementById('nav-' + screenId.replace('screen-', ''));
@@ -1476,6 +1483,33 @@
     });
   }
   // ── Schaalberekening ──
+  // ─── AUDIO TOGGLE ───
+  const ICON_PLAY = `<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>`;
+  const ICON_PAUSE = `<rect x="5" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/><rect x="15" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/>`;
+
+  function toggleAudio(audioId, btnId) {
+    const audio = document.getElementById(audioId);
+    const icon  = document.querySelector('#' + btnId + ' svg');
+    if (!audio) return;
+    if (audio.paused) {
+      // Stop alle andere audios eerst
+      document.querySelectorAll('audio').forEach(a => {
+        if (a !== audio && !a.paused) {
+          a.pause(); a.currentTime = 0;
+          const otherBtn = a.parentElement.querySelector('.btn-audio svg');
+          if (otherBtn) otherBtn.innerHTML = ICON_PLAY;
+        }
+      });
+      audio.play();
+      icon.innerHTML = ICON_PAUSE;
+    } else {
+      audio.pause();
+      icon.innerHTML = ICON_PLAY;
+    }
+    // Reset icoon wanneer audio klaar is
+    audio.onended = () => { icon.innerHTML = ICON_PLAY; };
+  }
+
   function updateScale() {
     const PADDING = 16;
     const nav = document.querySelector('.screen-nav');
