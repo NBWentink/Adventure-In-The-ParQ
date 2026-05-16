@@ -14,6 +14,11 @@
 
     * { margin: 0; padding: 0; box-sizing: border-box; }
 
+    html {
+      overflow: hidden;
+      height: 100%;
+    }
+
     body {
       background: #1c1c1c;
       display: flex;
@@ -21,7 +26,8 @@
       align-items: center;
       padding: 0;
       overflow: hidden;
-      height: 100vh;
+      height: 100%;
+      touch-action: none;
     }
 
     #app {
@@ -1089,13 +1095,8 @@
 
   // ── Schaalberekening ──
   function updateScale() {
-    const nav = document.querySelector('.screen-nav');
     const app = document.getElementById('app');
-    app.style.zoom = 1;
-    const availH = window.innerHeight - nav.offsetHeight;
-    const scaleX = window.innerWidth / 834;
-    const scaleY = availH / 1194;
-    app.style.zoom = Math.min(scaleX, scaleY);
+    app.style.zoom = window.innerWidth / 834;
   }
   window.addEventListener('resize', updateScale);
   window.addEventListener('load', updateScale);
