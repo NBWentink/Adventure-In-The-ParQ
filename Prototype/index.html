@@ -499,13 +499,12 @@
       background: #d6edd7;
       border-radius: 20px;
       display: flex;
-      flex-direction: row;
-      align-items: center;
-      gap: 20px;
-      padding: 25px 28px;
+      flex-direction: column;
+      align-items: stretch;
+      gap: 14px;
+      padding: 25px 28px 22px;
     }
     .opdracht-text-box p {
-      flex: 1;
       font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
       font-size: 24px;
       color: #000;
@@ -524,6 +523,25 @@
       cursor: pointer;
       user-select: none;
       box-shadow: 5px 5px 0 rgba(0,0,0,0.25);
+    }
+    .audio-player-row {
+      display: flex;
+      align-items: center;
+      gap: 14px;
+    }
+    .audio-progress-track {
+      flex: 1;
+      height: 12px;
+      background: rgba(0,0,0,0.12);
+      border-radius: 12px;
+      overflow: hidden;
+    }
+    .audio-progress-fill {
+      height: 100%;
+      width: 0%;
+      background: #2d6a2f;
+      border-radius: 12px;
+      transition: width 0.25s linear;
     }
 
     /* ─── SCREEN 11 voortgang-tekst ─── */
@@ -777,14 +795,19 @@
   <!-- Beschrijvingskaart (dynamisch) -->
   <div class="adventure-info-card layer" style="left:62px;top:641px;width:711px;height:325px;">
     <h3 id="adv-title">Jungle Expeditie</h3>
-    <p id="adv-desc">Jullie zijn ontdekkingsreizigers in de jungle. Help mij met de verloren tempel te vinden door liaan te zwaaien en te springen over rivieren. Maar doe voorzichtig! Er slapen namelijk veel gevaarlijke dieren in de jungle... Help je mee?</p>
+    <p id="adv-desc">Jullie zijn ontdekkingsreizigers in de jungle. Help mij door de jungle te komen door te springen over rivieren en de kust veilig te houden. Maar pas op voor de gevaarlijke dieren... Ga je mee?</p>
     <audio id="audio-avontuur" src="assets/jungle-avontuur.mp3"></audio>
-    <div class="btn-audio" id="btn-audio-avontuur" style="position:absolute;right:22px;bottom:22px;" onclick="toggleAudio('audio-avontuur','btn-audio-avontuur')">
-      <svg id="icon-audio-avontuur" width="34" height="34" viewBox="0 0 24 24" fill="none">
-        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
-        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-      </svg>
+    <div class="audio-player-row" style="position:absolute;left:22px;bottom:22px;right:22px;">
+      <div class="btn-audio" id="btn-audio-avontuur" onclick="toggleAudio('audio-avontuur','btn-audio-avontuur','prog-avontuur')">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="audio-progress-track">
+        <div class="audio-progress-fill" id="prog-avontuur"></div>
+      </div>
     </div>
   </div>
 
@@ -899,12 +922,17 @@
   <div class="opdracht-text-box layer" style="left:62px;top:775px;width:710px;height:auto;min-height:130px;">
     <p id="opdracht-instructie">Oh nee! Er stroomt hier een grote rivier, daar moeten we overheen! Spring 10 keer zo ver als je kan heen en weer!</p>
     <audio id="audio-opdracht" src="assets/opdracht-1.mp3"></audio>
-    <div class="btn-audio" id="btn-audio-opdracht" onclick="toggleAudio('audio-opdracht','btn-audio-opdracht')">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
-        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-      </svg>
+    <div class="audio-player-row">
+      <div class="btn-audio" id="btn-audio-opdracht" onclick="toggleAudio('audio-opdracht','btn-audio-opdracht','prog-opdracht')">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="audio-progress-track">
+        <div class="audio-progress-fill" id="prog-opdracht"></div>
+      </div>
     </div>
   </div>
 
@@ -957,12 +985,18 @@
   <!-- Voltooiing tekst box -->
   <div class="opdracht-text-box layer" style="left:62px;top:755px;width:710px;height:auto;min-height:150px;">
     <p id="opdracht-voltooid-tekst">Dat hebben jullie goed gedaan! We zijn aan de overkant.</p>
-    <div class="btn-audio" onclick="">
-      <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
-        <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
-        <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-        <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
-      </svg>
+    <audio id="audio-voltooid" src=""></audio>
+    <div class="audio-player-row">
+      <div class="btn-audio" id="btn-audio-voltooid" onclick="toggleAudio('audio-voltooid','btn-audio-voltooid','prog-voltooid')">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="audio-progress-track">
+        <div class="audio-progress-fill" id="prog-voltooid"></div>
+      </div>
     </div>
   </div>
 
@@ -1152,9 +1186,10 @@
       });
     }
 
-    // Stop eventuele lopende audio
+    // Stop eventuele lopende audio en reset progress
     document.querySelectorAll('audio').forEach(a => {
       if (!a.paused) { a.pause(); a.currentTime = 0; }
+      if (a._fillEl) { a._fillEl.style.width = '0%'; }
     });
     document.querySelectorAll('.btn-audio svg').forEach(svg => { svg.innerHTML = ICON_PLAY; });
 
@@ -1221,7 +1256,7 @@
   const adventures = [
     {
       title: 'Jungle Expeditie',
-      desc: 'Jullie zijn ontdekkingsreizigers in de jungle. Help mij de verloren tempel te vinden door aan lianen te zwaaien en over rivieren te springen. Maar doe voorzichtig! Er slapen veel gevaarlijke dieren in de jungle... Help je mee?',
+      desc: 'Jullie zijn ontdekkingsreizigers in de jungle. Help mij door de jungle te komen door te springen over rivieren en de kust veilig te houden. Maar pas op voor de gevaarlijke dieren... Ga je mee?',
       duration: '30 MIN',
       groups: '8',
       scene: 'assets/Jungle_Achtergrond.png'
@@ -1497,27 +1532,38 @@
   }
   // ── Schaalberekening ──
   // ─── AUDIO TOGGLE ───
-  function toggleAudio(audioId, btnId) {
+  function toggleAudio(audioId, btnId, progressId) {
     const audio = document.getElementById(audioId);
     const icon  = document.querySelector('#' + btnId + ' svg');
-    if (!audio) return;
+    const fill  = progressId ? document.getElementById(progressId) : null;
+    if (!audio || !audio.src || audio.src === window.location.href) return;
+
     if (audio.paused) {
       // Stop alle andere audios eerst
       document.querySelectorAll('audio').forEach(a => {
         if (a !== audio && !a.paused) {
           a.pause(); a.currentTime = 0;
-          const otherBtn = a.parentElement.querySelector('.btn-audio svg');
-          if (otherBtn) otherBtn.innerHTML = ICON_PLAY;
+          if (a._iconEl)  a._iconEl.innerHTML  = ICON_PLAY;
+          if (a._fillEl)  a._fillEl.style.width = '0%';
         }
       });
+      audio._iconEl = icon;
+      audio._fillEl = fill;
       audio.play();
       icon.innerHTML = ICON_PAUSE;
+      // Progress bijhouden
+      audio.ontimeupdate = () => {
+        if (fill && audio.duration)
+          fill.style.width = (audio.currentTime / audio.duration * 100) + '%';
+      };
     } else {
       audio.pause();
       icon.innerHTML = ICON_PLAY;
     }
-    // Reset icoon wanneer audio klaar is
-    audio.onended = () => { icon.innerHTML = ICON_PLAY; };
+    audio.onended = () => {
+      icon.innerHTML = ICON_PLAY;
+      if (fill) { fill.style.width = '0%'; audio.currentTime = 0; }
+    };
   }
 
   function updateScale() {
