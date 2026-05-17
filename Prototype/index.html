@@ -479,16 +479,12 @@
       background: white;
       cursor: pointer;
       box-shadow: 4px 4px 0 rgba(0,0,0,0.12);
-      outline: 5px solid transparent;
-      outline-offset: -1px;
-      transition: outline-color 0.15s, box-shadow 0.15s, transform 0.12s;
+      transition: box-shadow 0.15s, transform 0.12s;
       z-index: 5;
     }
     .avontuur-card:hover { transform: translateY(-2px); }
     .avontuur-card.selected {
-      outline-color: #f5c800;
-      outline-width: 8px;
-      box-shadow: 5px 5px 0 rgba(0,0,0,0.25);
+      box-shadow: 0 0 0 8px #f5c800, 5px 5px 0 rgba(0,0,0,0.25);
     }
     .avontuur-card .avcard-img {
       width: 260px;
@@ -601,6 +597,35 @@
       font-size: 24px;
       color: #000;
       line-height: 1.4;
+    }
+
+    /* ── Landscape animation overlay ── */
+    #landscape-overlay {
+      display: none;
+      position: fixed;
+      inset: 0;
+      background: rgba(0,0,0,0.88);
+      z-index: 9998;
+      align-items: center;
+      justify-content: center;
+      flex-direction: column;
+      gap: 20px;
+    }
+    #landscape-overlay.visible {
+      display: flex;
+    }
+    #landscape-img {
+      max-width: 90vw;
+      max-height: 85vh;
+      object-fit: contain;
+      border-radius: 20px;
+      box-shadow: 0 8px 40px rgba(0,0,0,0.5);
+    }
+    #landscape-hint {
+      color: rgba(255,255,255,0.55);
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px;
+      letter-spacing: 1px;
     }
 
   </style>
@@ -1285,6 +1310,9 @@
         contentEls(next).forEach(el => { el.style.animation = ''; });
       }, ANIM_MS);
 
+      // Landscape overlay bijwerken
+      checkLandscape();
+
     }, ANIM_MS);
   }
   document.getElementById('nav-01').classList.add('active');
@@ -1438,12 +1466,27 @@
   let opdrachtFrame = 0;
   let opdrachtTimer = null;
 
+  function syncLandscapeImg(src) {
+    const lsImg = document.getElementById('landscape-img');
+    if (lsImg && src) lsImg.src = src;
+  }
+
+  function checkLandscape() {
+    const isLandscape = window.innerWidth > window.innerHeight;
+    const s09 = document.getElementById('screen-09')?.classList.contains('active');
+    const s10 = document.getElementById('screen-10')?.classList.contains('active');
+    const overlay = document.getElementById('landscape-overlay');
+    if (overlay) overlay.classList.toggle('visible', isLandscape && (s09 || s10));
+  }
+
   function startOpdrachtAnim() {
     if (opdrachtTimer) return;
     opdrachtTimer = setInterval(() => {
       opdrachtFrame = (opdrachtFrame + 1) % opdrachtStates.length;
+      const src = opdrachtStates[opdrachtFrame];
       const img = document.getElementById('opdracht-img');
-      if (img) img.src = opdrachtStates[opdrachtFrame];
+      if (img) img.src = src;
+      syncLandscapeImg(src);
     }, 600);
   }
 
@@ -1511,6 +1554,7 @@
     stopOpdrachtAnim();
     const img = document.getElementById('opdracht-img');
     if (img) img.src = opdrachtStates[0];
+    syncLandscapeImg(opdrachtStates[0]);
 
     // Screen 09 — titel en instructie
     document.getElementById('opdracht-titel').textContent = opdracht.titel;
@@ -1704,6 +1748,7 @@
     app.style.top  = (navH + PADDING) + 'px';
   }
   window.addEventListener('resize', updateScale);
+  window.addEventListener('resize', checkLandscape);
   window.addEventListener('load', updateScale);
   updateScale();
 
@@ -1723,5 +1768,12 @@
 </script>
 
 </div>
+
+<!-- Landscape overlay: toont stop-motion groot bij horizontaal draaien -->
+<div id="landscape-overlay">
+  <img id="landscape-img" src="" alt="Opdracht animatie">
+  <span id="landscape-hint">Draai de iPad terug voor meer informatie</span>
+</div>
+
 </body>
 </html>
