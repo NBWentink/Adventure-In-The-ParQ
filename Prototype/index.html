@@ -342,19 +342,18 @@
       mask-image: url('assets/sfsymbol_qrcode.png');
     }
 
-    /* ─── SCREEN 03 COUNTER ─── */
-    .counter-widget {
+    /* ─── SCREEN 03 FLIP COUNTER ─── */
+    .flip-board {
       position: absolute;
       display: flex;
       align-items: center;
-      justify-content: center;
-      gap: 0;
+      gap: 22px;
     }
-    .counter-btn {
-      width: 109px;
-      height: 109px;
+    .flip-btn {
+      width: 90px;
+      height: 190px;
       background: #f5c800;
-      border-radius: 100px;
+      border-radius: 60px;
       border: none;
       cursor: pointer;
       display: flex;
@@ -363,28 +362,69 @@
       box-shadow: 5px 5px 0 rgba(0,0,0,0.25);
       flex-shrink: 0;
     }
-    .counter-btn span {
+    .flip-btn span {
       font-family: 'Thumpa', sans-serif;
-      font-size: 52px;
+      font-size: 58px;
       color: #2d6a2f;
       line-height: 1;
-      margin-top: -4px;
+      margin-top: -6px;
     }
-    .counter-display {
-      width: 260px;
-      height: 150px;
-      background: #2d6a2f;
-      border-radius: 20px;
+    .flip-tiles {
       display: flex;
-      align-items: center;
-      justify-content: center;
-      margin: 0 16px;
+      gap: 8px;
     }
-    .counter-display span {
+    .flip-digit {
+      position: relative;
+      width: 158px;
+      height: 204px;
+      perspective: 600px;
+    }
+    .fd-upper, .fd-lower {
+      position: absolute;
+      left: 0; right: 0;
+      height: 99px;
+      background: #2d6a2f;
+      overflow: hidden;
+      display: flex;
+      justify-content: center;
+    }
+    .fd-upper {
+      top: 0;
+      border-radius: 18px 18px 3px 3px;
+      align-items: flex-end;
+    }
+    .fd-lower {
+      bottom: 0;
+      border-radius: 3px 3px 18px 18px;
+      align-items: flex-start;
+    }
+    .fd-num {
       font-family: 'Thumpa', sans-serif;
-      font-size: 96px;
-      color: #ffffff;
-      line-height: 1;
+      font-size: 150px;
+      color: #fff;
+      line-height: 204px;
+      text-align: center;
+      width: 100%;
+      position: absolute;
+      user-select: none;
+    }
+    .fd-upper .fd-num { top: 0; }
+    .fd-lower .fd-num { bottom: 0; }
+    .fd-flap {
+      z-index: 2;
+      backface-visibility: hidden;
+    }
+    .fd-upper.fd-flap  { transform-origin: center bottom; }
+    .fd-lower.fd-flap  { transform-origin: center top; transform: rotateX(-90deg); }
+    .fd-line {
+      position: absolute;
+      left: 0; right: 0;
+      top: 50%;
+      height: 5px;
+      background: rgba(0,0,0,0.28);
+      transform: translateY(-50%);
+      z-index: 6;
+      pointer-events: none;
     }
 
     /* ─── SCREEN 02 GROEP CIRKELS ─── */
@@ -681,10 +721,25 @@
   <span class="page-title" style="top:68px;">Hoe veel leerlingen<br>gaan er mee?</span>
 
   <!-- Counter: interactief HTML-component -->
-  <div class="counter-widget layer" style="left:138px;top:414px;width:559px;height:232px;">
-    <button class="counter-btn" onclick="changeCount(-1)"><span>−</span></button>
-    <div class="counter-display"><span id="counter-val">15</span></div>
-    <button class="counter-btn" onclick="changeCount(1)"><span>+</span></button>
+  <div class="flip-board layer" style="left:137px;top:390px;">
+    <button class="flip-btn" onclick="changeCount(-1)"><span>−</span></button>
+    <div class="flip-tiles">
+      <div class="flip-digit" id="fd-tens">
+        <div class="fd-upper fd-static"><span class="fd-num">1</span></div>
+        <div class="fd-lower fd-static"><span class="fd-num">1</span></div>
+        <div class="fd-upper fd-flap"><span class="fd-num">1</span></div>
+        <div class="fd-lower fd-flap"><span class="fd-num">1</span></div>
+        <div class="fd-line"></div>
+      </div>
+      <div class="flip-digit" id="fd-units">
+        <div class="fd-upper fd-static"><span class="fd-num">5</span></div>
+        <div class="fd-lower fd-static"><span class="fd-num">5</span></div>
+        <div class="fd-upper fd-flap"><span class="fd-num">5</span></div>
+        <div class="fd-lower fd-flap"><span class="fd-num">5</span></div>
+        <div class="fd-line"></div>
+      </div>
+    </div>
+    <button class="flip-btn" onclick="changeCount(1)"><span>+</span></button>
   </div>
 
   <!-- Volgende -->
@@ -1235,11 +1290,63 @@
   document.getElementById('nav-01').classList.add('active');
 
   // ── Counter (scherm 03) ──
+  // ── Flip-scoreboard counter (scherm 03) ──
   let count = 15;
-  function changeCount(delta) {
-    count = Math.max(1, Math.min(99, count + delta));
-    document.getElementById('counter-val').textContent = count;
+
+  function flipDigit(id, oldD, newD) {
+    const el = document.getElementById(id);
+    const statics = el.querySelectorAll('.fd-static');
+    const flaps   = el.querySelectorAll('.fd-flap');
+    const [staticUpper, staticLower] = statics;
+    const [flapUpper,   flapLower]   = flaps;
+
+    // Static upper gets the new digit right away (hidden under flapUpper)
+    staticUpper.querySelector('.fd-num').textContent = newD;
+    // Flap upper shows old digit and folds away
+    flapUpper.querySelector('.fd-num').textContent = oldD;
+    // Flap lower will bring in the new bottom
+    flapLower.querySelector('.fd-num').textContent = newD;
+
+    // Phase 1: fold top flap down
+    flapUpper.style.transition = 'transform 0.18s ease-in';
+    flapUpper.style.transform  = 'rotateX(90deg)';
+
+    setTimeout(() => {
+      // Phase 2: swing bottom flap in
+      flapLower.style.transition = 'none';
+      flapLower.style.transform  = 'rotateX(-90deg)';
+      requestAnimationFrame(() => requestAnimationFrame(() => {
+        flapLower.style.transition = 'transform 0.18s ease-out';
+        flapLower.style.transform  = 'rotateX(0deg)';
+      }));
+      // Reset top flap silently
+      setTimeout(() => {
+        flapUpper.style.transition = 'none';
+        flapUpper.style.transform  = 'rotateX(0deg)';
+        flapUpper.querySelector('.fd-num').textContent = newD;
+        staticLower.querySelector('.fd-num').textContent = newD;
+      }, 200);
+    }, 190);
   }
+
+  function changeCount(delta) {
+    const newCount = Math.max(1, Math.min(99, count + delta));
+    if (newCount === count) return;
+    const oldTens  = Math.floor(count / 10);
+    const oldUnits = count % 10;
+    count = newCount;
+    const newTens  = Math.floor(count / 10);
+    const newUnits = count % 10;
+    if (oldTens  !== newTens)  flipDigit('fd-tens',  oldTens,  newTens);
+    if (oldUnits !== newUnits) flipDigit('fd-units', oldUnits, newUnits);
+  }
+
+  // Initialiseer flip-board
+  (function initFlipBoard() {
+    const t = Math.floor(count / 10), u = count % 10;
+    document.querySelectorAll('#fd-tens  .fd-num').forEach(n => n.textContent = t);
+    document.querySelectorAll('#fd-units .fd-num').forEach(n => n.textContent = u);
+  })();
 
   // ── Groep Keuze (scherm 02) ──
   function selectGroep(nr) {
@@ -1286,8 +1393,11 @@
   let jungleActive = false;
   let jungleBgOffset = 0;
 
-  // Injecteer jungle-bg-overlay in elk scherm
-  document.querySelectorAll('.screen').forEach(screen => {
+  // Injecteer jungle-bg-overlay alleen in schermen vanaf 05
+  const JUNGLE_SCREENS = ['screen-05','screen-06','screen-07','screen-09','screen-10','screen-11','screen-12','screen-13'];
+  JUNGLE_SCREENS.forEach(id => {
+    const screen = document.getElementById(id);
+    if (!screen) return;
     const overlay = document.createElement('div');
     overlay.className = 'jungle-bg-overlay';
     screen.insertBefore(overlay, screen.firstChild);
@@ -1374,7 +1484,7 @@
       voltooid: 'Goed gedaan! Jullie hebben je balans goed behouden!',
       voortgangTekst: 'Drie opdrachten gedaan! Nog één te gaan. Zoek de laatste QR-code!',
       isLaatste: false,
-      states: ['assets/opdracht-state-1.svg', 'assets/opdracht-state-2.svg', 'assets/opdracht-state-3.svg']
+      states: ['assets/opdracht-3-state-1.png', 'assets/opdracht-3-state-2.png']
     },
     {
       id: 4,
