@@ -615,17 +615,22 @@
       display: flex;
     }
     #landscape-img {
-      max-width: 90vw;
-      max-height: 85vh;
+      max-width: 98vw;
+      max-height: 92vh;
       object-fit: contain;
-      border-radius: 20px;
+      border-radius: 16px;
       box-shadow: 0 8px 40px rgba(0,0,0,0.5);
     }
     #landscape-hint {
-      color: rgba(255,255,255,0.55);
+      position: fixed;
+      bottom: 16px;
+      left: 50%;
+      transform: translateX(-50%);
+      color: rgba(255,255,255,0.45);
       font-family: 'Poppins', sans-serif;
-      font-size: 14px;
+      font-size: 13px;
       letter-spacing: 1px;
+      white-space: nowrap;
     }
 
   </style>
@@ -1524,7 +1529,7 @@
       titel: 'Opdracht 3',
       naam: 'Wankele brug',
       instructie: 'Pas op! Deze brug is niet heel stevig! We moeten erg voorzichtig zijn… Loop 10 stappen op een rechte lijn, met je hakken tegen je tenen en houd je armen wijd!',
-      voltooid: 'Goed gedaan! Jullie hebben je balans goed behouden!',
+      voltooid: 'Goed gedaan! Jullie hebben je balans goed behouden en zijn veilig aan de overkant gekomen. Ga door naar de volgende opdracht!',
       voortgangTekst: 'Drie opdrachten gedaan! Nog één te gaan. Zoek de laatste QR-code!',
       isLaatste: false,
       states: ['assets/opdracht-3-state-1.png', 'assets/opdracht-3-state-2.png']
