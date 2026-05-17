@@ -599,6 +599,32 @@
       line-height: 1.4;
     }
 
+    /* ── Voortgang checkmark dots ── */
+    .voortgang-dot {
+      position: absolute;
+      width: 66px;
+      height: 66px;
+      background: #f5c800;
+      border-radius: 50%;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      box-shadow: 5px 5px 0 rgba(0,0,0,0.25);
+      transform: translate(-50%, -50%) scale(0);
+      opacity: 0;
+      transition: transform 0.35s cubic-bezier(0.34, 1.56, 0.64, 1), opacity 0.2s ease;
+      z-index: 10;
+      pointer-events: none;
+    }
+    .voortgang-dot.visible {
+      transform: translate(-50%, -50%) scale(1);
+      opacity: 1;
+    }
+    .voortgang-dot svg {
+      width: 34px;
+      height: 34px;
+    }
+
     /* ── Landscape animation overlay ── */
     #landscape-overlay {
       display: none;
@@ -1122,6 +1148,20 @@
     <img src="assets/map.svg" style="width:710px;height:533px;display:block;">
   </div>
 
+  <!-- Checkmark bolletjes op de kaart -->
+  <div class="voortgang-dot layer" id="vdot-1" style="left:168px;top:638px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#2d6a2f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="voortgang-dot layer" id="vdot-2" style="left:358px;top:452px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#2d6a2f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="voortgang-dot layer" id="vdot-3" style="left:623px;top:584px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#2d6a2f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+  <div class="voortgang-dot layer" id="vdot-4" style="left:635px;top:305px;">
+    <svg viewBox="0 0 24 24" fill="none" stroke="#2d6a2f" stroke-width="3.5" stroke-linecap="round" stroke-linejoin="round"><polyline points="20 6 9 17 4 12"/></svg>
+  </div>
+
   <!-- Voortgang tekst box (mint) -->
   <div class="progress-text-box layer" style="left:62px;top:789px;width:710px;height:207px;">
     <p id="voortgang-tekst">Jullie zijn goed bezig! Ga door naar de volgende opdracht en help Finn verder in de jungle!</p>
@@ -1301,6 +1341,10 @@
 
       // Scherm-specifieke acties
       if (screenId === 'screen-05') updateScreen5();
+      if (screenId === 'screen-11' && currentOpdracht) {
+        completedOpdrachten.add(currentOpdracht.id);
+        updateVoortgangDots();
+      }
       if (screenId === 'screen-09') startOpdrachtAnim();
       else stopOpdrachtAnim();
       if (screenId === 'screen-07') startCamera('qr-video-07', 'qr-status-07', 'screen-09');
@@ -1425,6 +1469,19 @@
   let groundRotation = 0;
   let jungleActive = false;
   let jungleBgOffset = 0;
+  const completedOpdrachten = new Set();
+
+  function updateVoortgangDots() {
+    for (let i = 1; i <= 4; i++) {
+      const dot = document.getElementById('vdot-' + i);
+      if (!dot) continue;
+      if (completedOpdrachten.has(i)) {
+        dot.classList.add('visible');
+      } else {
+        dot.classList.remove('visible');
+      }
+    }
+  }
 
   // Injecteer jungle-bg-overlay alleen in schermen vanaf 05
   const JUNGLE_SCREENS = ['screen-05','screen-06','screen-07','screen-09','screen-10','screen-11','screen-12','screen-13'];
