@@ -199,26 +199,7 @@
     }
 
     /* ─── PROGRESS BAR ─── */
-    .progressiebalk {
-      position: absolute;
-      width: 307px;
-      height: 29px;
-      background: #2d6a2f;
-      border-radius: 53px;
-      display: flex;
-      align-items: center;
-      padding: 1px 1px;
-      gap: 1px;
-    }
-    .progressiebalk .seg {
-      flex: 1;
-      height: 27px;
-      background: #ffe987;
-      border-radius: 50px;
-    }
-    .progressiebalk .seg.done {
-      background: #f5c800;
-    }
+    .progressiebalk { display: none; }
 
     /* ─── QR SCANNER FRAME ─── */
     .qr-viewer {
@@ -737,6 +718,7 @@
   <button onclick="navigate('screen-11')" id="nav-11">11 Voortgang</button>
   <button onclick="navigate('screen-12')" id="nav-12">12 Zoek QR2</button>
   <button onclick="navigate('screen-13')" id="nav-13">13 Scan QR2</button>
+  <button onclick="navigate('screen-14')" id="nav-14">14 Compleet</button>
 </div>
 
 <div id="app">
@@ -1110,8 +1092,8 @@
   <span class="page-title" id="opdracht-titel" style="top:87px;">Opdracht 1</span>
 
   <!-- Opdracht illustratie: 3-state stop-motion animatie -->
-  <div class="layer" style="left:62px;top:230px;width:710px;height:523px;border-radius:20px;overflow:hidden;">
-    <img id="opdracht-img" src="assets/opdracht-state-1.svg" style="width:710px;height:523px;display:block;">
+  <div class="layer" style="left:62px;top:185px;width:710px;height:560px;border-radius:20px;overflow:hidden;">
+    <img id="opdracht-img" src="assets/opdracht-state-1.svg" style="width:710px;height:560px;display:block;">
   </div>
 
   <!-- Opdracht tekst box -->
@@ -1133,7 +1115,7 @@
   </div>
 
   <!-- Volgende -->
-  <div class="btn-volgende layer" style="left:223px;top:1037px;" onclick="navigate('screen-10')">
+  <div class="btn-volgende layer" style="left:223px;bottom:62px;" onclick="navigate('screen-10')">
     <span>Volgende</span>
     <svg class="arrow-right" viewBox="0 0 31 21" fill="none">
       <path d="M1 10.5H29M29 10.5L19 1M29 10.5L19 20" stroke="#2d6a2f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
@@ -1173,9 +1155,9 @@
     </div>
   </div>
 
-  <!-- Voltooiing illustratie (mascotte trots) -->
+  <!-- Voltooiing illustratie (mascotte voltooid) -->
   <div class="layer" style="left:167px;top:295px;width:500px;height:440px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-    <img src="assets/fox_trots.png" style="height:440px;width:auto;display:block;">
+    <img src="assets/mascotte-voltooid.png" style="height:440px;width:auto;display:block;">
   </div>
 
   <!-- Voltooiing tekst box -->
@@ -1325,6 +1307,61 @@
   <!-- Volgende (terug naar start) -->
   <div class="btn-volgende layer" style="left:223px;top:1037px;" onclick="navigate('screen-01')">
     <span>Volgende</span>
+    <svg class="arrow-right" viewBox="0 0 31 21" fill="none">
+      <path d="M1 10.5H29M29 10.5L19 1M29 10.5L19 20" stroke="#2d6a2f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
+    </svg>
+  </div>
+
+</div>
+
+<!-- ════════════════════════════════════════════
+     14 | AVONTUUR COMPLEET
+     ════════════════════════════════════════════ -->
+<div class="screen" id="screen-14">
+
+  <!-- Achtergrond bos -->
+  <img src="assets/achtergrond-10.svg" class="layer" style="left:-1835px;top:-383px;width:3144px;height:1798px;opacity:0.7;">
+
+  <!-- Grond -->
+  <img src="assets/grond-10.svg" class="layer" style="left:-433px;top:823px;width:1692px;height:1692px;">
+
+  <!-- Banner -->
+  <div class="layer" style="left:141px;top:100px;width:552px;height:147px;">
+    <img src="assets/banner-voltooid.svg" style="width:552px;height:147px;display:block;position:absolute;top:0;left:0;">
+    <div style="position:absolute;left:80px;top:7px;width:393px;height:114px;background:#F5C800;border-radius:4px;"></div>
+    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">
+      <span style="font-family:'Thumpa',sans-serif;font-size:24px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Avontuur</span>
+      <span style="font-family:'Thumpa',sans-serif;font-size:24px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Voltooid!</span>
+    </div>
+  </div>
+
+  <!-- Mascotte met medaille -->
+  <div class="layer" style="left:50%;top:255px;transform:translateX(-50%);width:310px;">
+    <img src="assets/mascotte-compleet.png" style="width:310px;height:auto;display:block;">
+  </div>
+
+  <!-- Tekst + audio box -->
+  <div class="adventure-info-card layer" style="left:62px;top:740px;width:711px;height:auto;min-height:200px;">
+    <h3 style="font-family:'Thumpa',sans-serif;font-size:26px;color:#2d6a2f;margin:0 0 10px 0;">Jullie zijn echte Jungle Avonturiers!</h3>
+    <p style="font-family:'Poppins',sans-serif;font-size:15px;color:#2d6a2f;line-height:1.5;margin:0;">Wauw, het is gelukt! We zijn veilig door de jungle gekomen. Zonder jullie hulp had ik dit niet kunnen doen. Ik ben zo trots op jullie! Hier, een medaille als beloning. Geef hem een mooie plek, en tot het volgende avontuur!</p>
+    <audio id="audio-compleet" src="assets/opdracht-compleet.mp3"></audio>
+    <div class="audio-player-row" style="position:absolute;left:22px;bottom:22px;right:22px;">
+      <div class="btn-audio" id="btn-audio-compleet" onclick="toggleAudio('audio-compleet','btn-audio-compleet','prog-compleet')">
+        <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
+          <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
+          <path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+          <path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+        </svg>
+      </div>
+      <div class="audio-progress-track">
+        <div class="audio-progress-fill" id="prog-compleet"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- Terug naar begin -->
+  <div class="btn-volgende layer" style="left:223px;bottom:62px;" onclick="navigate('screen-01')">
+    <span>Terug naar begin</span>
     <svg class="arrow-right" viewBox="0 0 31 21" fill="none">
       <path d="M1 10.5H29M29 10.5L19 1M29 10.5L19 20" stroke="#2d6a2f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
@@ -1689,7 +1726,7 @@
       voltooid: 'Wauw! Jullie hebben het geweldig gedaan! Jullie zijn echte Jungle Avonturiers geworden!',
       voortgangTekst: 'Jullie hebben alle 4 opdrachten voltooid! Het Jungle Avontuur is geslaagd! Goed gedaan, echte Jungle Avonturiers!',
       isLaatste: true,
-      states: ['assets/opdracht-state-1.svg', 'assets/opdracht-state-2.svg', 'assets/opdracht-state-3.svg']
+      states: ['assets/opdracht-4-state-1.png', 'assets/opdracht-4-state-2.png', 'assets/opdracht-4-state-3.png']
     }
   ];
 
@@ -1749,7 +1786,7 @@
     const btnLabel = document.getElementById('voortgang-btn-label');
     if (opdracht.isLaatste) {
       btnLabel.textContent = 'Avontuur voltooien';
-      btn.onclick = () => navigate('screen-01');
+      btn.onclick = () => navigate('screen-14');
     } else {
       btnLabel.textContent = 'Volgende QR-code';
       btn.onclick = () => navigate('screen-06');
