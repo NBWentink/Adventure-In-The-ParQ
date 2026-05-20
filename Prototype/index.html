@@ -456,8 +456,27 @@
     }
     .groep-circle .groep-nr {
       font-family: 'Thumpa', sans-serif;
-      font-size: 100px; color: #2d6a2f;
-      line-height: 0.85;
+      font-size: 72px; color: #2d6a2f;
+      line-height: 0.9;
+    }
+    .groep-circle .groep-leerlingen {
+      font-family: 'Poppins', sans-serif;
+      font-size: 14px; color: #2d6a2f;
+      margin-top: 4px;
+      font-weight: 600;
+      opacity: 0.8;
+    }
+    .groep-medals-inner {
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      gap: 4px;
+      margin-top: 8px;
+    }
+    .groep-medals-inner img {
+      width: 36px;
+      height: 36px;
+      filter: drop-shadow(2px 2px 0 rgba(0,0,0,0.18));
     }
     /* Centrale mascotte — staat op de grond in het midden van het scherm */
     #groep-mascot-center {
@@ -527,6 +546,36 @@
       width: 711px; height: 326px;
       display: block; object-fit: cover;
       border-radius: 20px;
+    }
+    /* ─── SCHOMMEL MASCOTTE (screen 05) ─── */
+    .swing-wrap {
+      position: absolute;
+      width: 190px;
+      left: 244px;
+      top: -64px;
+      transform-origin: 112px 0px;
+      pointer-events: none;
+      animation: mascot-swing 2.0s steps(1, end) infinite;
+    }
+    .swing-vine-ext {
+      width: 11px;
+      height: 64px;
+      background: linear-gradient(to bottom, #233d23, #2d5a2d);
+      border-radius: 5px;
+      margin-left: calc(59% - 5px);
+    }
+    .swing-mascot {
+      width: 190px;
+      height: auto;
+      display: block;
+      margin-top: -6px;
+    }
+    @keyframes mascot-swing {
+      0%    { transform: rotate(-25deg); }
+      25%   { transform: rotate(0deg); }
+      50%   { transform: rotate(22deg); }
+      75%   { transform: rotate(0deg); }
+      100%  { transform: rotate(-25deg); }
     }
 
     /* ─── (LEGACY, niet meer gebruikt) ─── */
@@ -707,7 +756,7 @@
   <img src="assets/banner.svg" class="layer" style="left:96px;top:38px;width:642px;height:170px;z-index:3;">
 
   <!-- Mascotte -->
-  <img src="assets/mascotte-welkom.png" class="layer" style="left:192px;top:220px;width:450px;height:auto;z-index:3;">
+  <img src="assets/mascotte-welkom.png" class="layer" style="left:145px;top:220px;width:450px;height:auto;z-index:3;">
 
   <!-- Knop: Start een avontuur -->
   <div class="btn-start layer" style="left:220px;top:919px;z-index:4;" onclick="navigate('screen-02')">
@@ -744,18 +793,30 @@
   <div id="groep-circle-4" class="groep-circle layer" style="left:290px;top:160px;" onclick="selectGroep(4)">
     <span class="groep-lbl">GROEP</span>
     <span class="groep-nr">4</span>
+    <span class="groep-leerlingen">19 leerlingen</span>
+    <div class="groep-medals-inner">
+      <img src="assets/medaille.svg"><img src="assets/medaille.svg">
+    </div>
   </div>
 
   <!-- Groep 3 (linksonder) -->
   <div id="groep-circle-3" class="groep-circle layer" style="left:62px;top:320px;" onclick="selectGroep(3)">
     <span class="groep-lbl">GROEP</span>
     <span class="groep-nr">3</span>
+    <span class="groep-leerlingen">21 leerlingen</span>
+    <div class="groep-medals-inner">
+      <img src="assets/medaille.svg"><img src="assets/medaille.svg"><img src="assets/medaille.svg">
+    </div>
   </div>
 
   <!-- Groep 5 (rechtsonder) -->
   <div id="groep-circle-5" class="groep-circle layer" style="left:518px;top:320px;" onclick="selectGroep(5)">
     <span class="groep-lbl">GROEP</span>
     <span class="groep-nr">5</span>
+    <span class="groep-leerlingen">25 leerlingen</span>
+    <div class="groep-medals-inner">
+      <img src="assets/medaille.svg">
+    </div>
   </div>
 
   <!-- Centrale mascotte — staat op de grond, wijst naar geselecteerde cirkel -->
@@ -909,6 +970,10 @@
   <!-- Avontuur hero-afbeelding (dynamisch op basis van keuze scherm 04) -->
   <div class="layer" style="left:62px;top:198px;width:711px;height:326px;border-radius:20px;overflow:hidden;">
     <img id="avontuur-hero-img" src="assets/Jungle_Achtergrond.png" class="avontuur-hero-img">
+    <div class="swing-wrap">
+      <div class="swing-vine-ext"></div>
+      <img class="swing-mascot" src="assets/mascotte-slingerend.png" alt="">
+    </div>
   </div>
 
   <!-- Badges rij: duur + groepen (dynamisch) -->
