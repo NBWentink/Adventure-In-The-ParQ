@@ -1319,14 +1319,14 @@
      ════════════════════════════════════════════ -->
 <div class="screen" id="screen-14">
 
-  <!-- Achtergrond bos -->
-  <img src="assets/achtergrond-10.svg" class="layer" style="left:-1835px;top:-383px;width:3144px;height:1798px;opacity:0.7;">
+  <!-- Jungle achtergrond -->
+  <img src="assets/jungle_bg.png" class="layer" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;">
 
   <!-- Grond -->
-  <img src="assets/grond-10.svg" class="layer" style="left:-433px;top:823px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer" style="left:0;bottom:0;width:834px;height:auto;z-index:1;object-fit:cover;">
 
   <!-- Banner -->
-  <div class="layer" style="left:141px;top:100px;width:552px;height:147px;">
+  <div class="layer" style="left:141px;top:100px;width:552px;height:147px;z-index:2;">
     <img src="assets/banner-voltooid.svg" style="width:552px;height:147px;display:block;position:absolute;top:0;left:0;">
     <div style="position:absolute;left:80px;top:7px;width:393px;height:114px;background:#F5C800;border-radius:4px;"></div>
     <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">
@@ -1336,14 +1336,14 @@
   </div>
 
   <!-- Mascotte met medaille -->
-  <div class="layer" style="left:50%;top:255px;transform:translateX(-50%);width:310px;">
-    <img src="assets/mascotte-compleet.png" style="width:310px;height:auto;display:block;">
+  <div class="layer" style="left:50%;top:265px;transform:translateX(-50%);width:390px;z-index:2;">
+    <img src="assets/mascotte-compleet.png" style="width:390px;height:auto;display:block;">
   </div>
 
   <!-- Tekst + audio box -->
-  <div class="adventure-info-card layer" style="left:62px;top:740px;width:711px;height:auto;min-height:200px;">
-    <h3 style="font-family:'Thumpa',sans-serif;font-size:26px;color:#2d6a2f;margin:0 0 10px 0;">Jullie zijn echte Jungle Avonturiers!</h3>
-    <p style="font-family:'Poppins',sans-serif;font-size:15px;color:#2d6a2f;line-height:1.5;margin:0;">Wauw, het is gelukt! We zijn veilig door de jungle gekomen. Zonder jullie hulp had ik dit niet kunnen doen. Ik ben zo trots op jullie! Hier, een medaille als beloning. Geef hem een mooie plek, en tot het volgende avontuur!</p>
+  <div class="adventure-info-card layer" style="left:62px;top:740px;width:711px;height:auto;min-height:200px;z-index:2;">
+    <h3>Jullie hebben het gedaan!</h3>
+    <p>Wauw, het is gelukt! We zijn veilig door de jungle gekomen. Zonder jullie hulp had ik dit niet kunnen doen. Ik ben zo trots op jullie! Hier, een medaille als beloning. Geef hem een mooie plek, en tot het volgende avontuur!</p>
     <audio id="audio-compleet" src="assets/opdracht-compleet.mp3"></audio>
     <div class="audio-player-row" style="position:absolute;left:22px;bottom:22px;right:22px;">
       <div class="btn-audio" id="btn-audio-compleet" onclick="toggleAudio('audio-compleet','btn-audio-compleet','prog-compleet')">
@@ -1360,7 +1360,7 @@
   </div>
 
   <!-- Terug naar begin -->
-  <div class="btn-volgende layer" style="left:223px;bottom:62px;" onclick="navigate('screen-01')">
+  <div class="btn-volgende layer" style="left:223px;bottom:62px;z-index:3;" onclick="navigate('screen-01')">
     <span>Terug naar begin</span>
     <svg class="arrow-right" viewBox="0 0 31 21" fill="none">
       <path d="M1 10.5H29M29 10.5L19 1M29 10.5L19 20" stroke="#2d6a2f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
