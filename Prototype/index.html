@@ -186,9 +186,13 @@
     .page-title {
       position: absolute;
       left: 50% !important;
-      top: 106px !important;
-      transform: translateX(-50%) translateY(-50%);
+      top: 68px !important;
+      height: 75px !important;
+      transform: translateX(-50%);
       width: 475px !important;
+      display: flex !important;
+      align-items: center;
+      justify-content: center;
       text-align: center;
       font-family: 'Thumpa', sans-serif;
       font-size: 32px;
@@ -199,7 +203,8 @@
       z-index: 10;
       background: #2D6A2F;
       border-radius: 14px;
-      padding: 10px 20px;
+      padding: 0 20px;
+      box-sizing: border-box;
     }
 
     /* ─── PROGRESS BAR ─── */
