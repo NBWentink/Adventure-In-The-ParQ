@@ -741,13 +741,8 @@
   <img src="assets/mascotte-welkom.png" class="layer" style="left:145px;top:220px;width:450px;height:auto;z-index:3;">
 
   <!-- Knop: Start een avontuur -->
-  <div class="btn-start layer" style="left:220px;top:919px;z-index:4;" onclick="navigate('screen-02')">
+  <div class="btn-start layer" style="left:223px;top:1037px;z-index:4;" onclick="navigate('screen-02')">
     <span>Start een avontuur</span>
-  </div>
-
-  <!-- Knop: Bekijk de demo -->
-  <div class="btn-start layer" style="left:223px;top:1037px;z-index:4;">
-    <span>Bekijk de demo</span>
   </div>
 
 </div>
@@ -1148,10 +1143,10 @@
     <img src="assets/banner-voltooid.svg" style="width:552px;height:147px;display:block;position:absolute;top:0;left:0;">
     <!-- Geel vlak over ingebakken SVG-tekst -->
     <div style="position:absolute;left:80px;top:7px;width:393px;height:114px;background:#F5C800;border-radius:4px;"></div>
-    <!-- HTML tekst overlay -->
-    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">
-      <span id="banner-opdracht-label" style="font-family:'Thumpa',sans-serif;font-size:24px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Opdracht 1</span>
-      <span style="font-family:'Thumpa',sans-serif;font-size:24px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Voltooid!</span>
+    <!-- HTML tekst overlay — uitgelijnd op het gele vlak -->
+    <div style="position:absolute;left:80px;top:7px;width:393px;height:114px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0px;">
+      <span id="banner-opdracht-label" style="font-family:'Thumpa',sans-serif;font-size:36px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Opdracht 1</span>
+      <span style="font-family:'Thumpa',sans-serif;font-size:36px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Voltooid!</span>
     </div>
   </div>
 
@@ -1329,9 +1324,9 @@
   <div class="layer" style="left:141px;top:100px;width:552px;height:147px;z-index:2;">
     <img src="assets/banner-voltooid.svg" style="width:552px;height:147px;display:block;position:absolute;top:0;left:0;">
     <div style="position:absolute;left:80px;top:7px;width:393px;height:114px;background:#F5C800;border-radius:4px;"></div>
-    <div style="position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:2px;">
-      <span style="font-family:'Thumpa',sans-serif;font-size:24px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Avontuur</span>
-      <span style="font-family:'Thumpa',sans-serif;font-size:24px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Voltooid!</span>
+    <div style="position:absolute;left:80px;top:7px;width:393px;height:114px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0px;">
+      <span style="font-family:'Thumpa',sans-serif;font-size:36px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Avontuur</span>
+      <span style="font-family:'Thumpa',sans-serif;font-size:36px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Voltooid!</span>
     </div>
   </div>
 
@@ -1813,8 +1808,15 @@
   let qrStream = null;
   let qrAnimFrame = null;
 
+  // Detecteer of de native BarcodeDetector beschikbaar is (Safari iOS 16+ / Chrome)
+  const useNativeScanner = typeof BarcodeDetector !== 'undefined';
+  let barcodeDetector = null;
+  if (useNativeScanner) {
+    try { barcodeDetector = new BarcodeDetector({ formats: ['qr_code'] }); } catch(e) {}
+  }
+
   async function startCamera(videoId, statusId, nextScreen) {
-    stopCamera(); // Stop eventuele vorige sessie
+    stopCamera();
     const video = document.getElementById(videoId);
     const statusEl = document.getElementById(statusId);
     if (!video) return;
@@ -1827,11 +1829,23 @@
     try {
       if (statusEl) statusEl.textContent = 'Camera starten…';
       const stream = await navigator.mediaDevices.getUserMedia({
-        video: { facingMode: { ideal: 'environment' }, width: { ideal: 1280 }, height: { ideal: 1280 } }
+        video: {
+          facingMode: { ideal: 'environment' },
+          width:  { ideal: 1920 },
+          height: { ideal: 1080 }
+        }
       });
       qrStream = stream;
       video.srcObject = stream;
       await video.play();
+
+      // Stel canvas eenmalig in op werkelijke videoresolutie
+      const canvas = document.getElementById('qr-canvas');
+      video.addEventListener('loadedmetadata', () => {
+        canvas.width  = video.videoWidth;
+        canvas.height = video.videoHeight;
+      }, { once: true });
+
       if (statusEl) statusEl.textContent = 'Houd een QR-code voor de camera';
       scanFrame(video, statusEl, nextScreen);
     } catch (err) {
@@ -1841,37 +1855,59 @@
     }
   }
 
+  let lastScanTime = 0;
+
+  function handleQRResult(data, statusEl, nextScreen) {
+    const match = data.match(/[?&]opdracht=(\d+)/);
+    if (match) {
+      const id = parseInt(match[1]);
+      loadOpdracht(id);
+      if (statusEl) statusEl.textContent = '✓ Opdracht ' + id + ' gevonden!';
+      stopCamera();
+      setTimeout(() => navigate('screen-09'), 400);
+      return true;
+    } else {
+      if (statusEl) statusEl.textContent = 'Verkeerde QR-code, probeer opnieuw…';
+      setTimeout(() => {
+        if (qrStream && statusEl) statusEl.textContent = 'Houd een QR-code voor de camera';
+      }, 1500);
+      return false;
+    }
+  }
+
   function scanFrame(video, statusEl, nextScreen) {
     if (!qrStream) return;
-    const canvas = document.getElementById('qr-canvas');
-    const ctx = canvas.getContext('2d');
 
-    if (video.readyState === video.HAVE_ENOUGH_DATA) {
-      canvas.width  = video.videoWidth;
-      canvas.height = video.videoHeight;
-      ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
-      const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
-      const code = jsQR(imageData.data, imageData.width, imageData.height, {
-        inversionAttempts: 'dontInvert'
-      });
-      if (code) {
-        const match = code.data.match(/[?&]opdracht=(\d+)/);
-        if (match) {
-          const id = parseInt(match[1]);
-          loadOpdracht(id);
-          if (statusEl) statusEl.textContent = '✓ Opdracht ' + id + ' gevonden!';
-          stopCamera();
-          setTimeout(() => navigate('screen-09'), 400);
-          return;
-        } else {
-          // Geldige QR maar geen opdracht-code — doorgaan met scannen
-          if (statusEl) statusEl.textContent = 'Verkeerde QR-code, probeer opnieuw…';
-          setTimeout(() => {
-            if (qrStream && statusEl) statusEl.textContent = 'Houd een QR-code voor de camera';
-          }, 1500);
-        }
+    const now = performance.now();
+    const ready = video.readyState === video.HAVE_ENOUGH_DATA;
+
+    // Throttle: scan maximaal elke 150ms
+    if (ready && now - lastScanTime >= 150) {
+      lastScanTime = now;
+
+      if (barcodeDetector) {
+        // Snelste pad: native BarcodeDetector (hardware-versneld op iOS/iPadOS)
+        barcodeDetector.detect(video).then(codes => {
+          if (!qrStream) return;
+          if (codes.length > 0) handleQRResult(codes[0].rawValue, statusEl, nextScreen);
+        }).catch(() => {});
+      } else {
+        // Fallback: jsQR — schaal canvas naar max 640px voor snellere verwerking
+        const canvas = document.getElementById('qr-canvas');
+        const ctx = canvas.getContext('2d', { willReadFrequently: true });
+        const SCAN_SIZE = 640;
+        const scale = Math.min(1, SCAN_SIZE / Math.max(video.videoWidth, video.videoHeight));
+        canvas.width  = Math.round(video.videoWidth  * scale);
+        canvas.height = Math.round(video.videoHeight * scale);
+        ctx.drawImage(video, 0, 0, canvas.width, canvas.height);
+        const imageData = ctx.getImageData(0, 0, canvas.width, canvas.height);
+        const code = jsQR(imageData.data, imageData.width, imageData.height, {
+          inversionAttempts: 'attemptBoth'
+        });
+        if (code) handleQRResult(code.data, statusEl, nextScreen);
       }
     }
+
     qrAnimFrame = requestAnimationFrame(() => scanFrame(video, statusEl, nextScreen));
   }
 
