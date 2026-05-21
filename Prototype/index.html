@@ -213,6 +213,8 @@
       align-items: center;
       justify-content: center;
       box-shadow: 5px 5px 0 rgba(0,0,0,0.25);
+      transform: translateZ(0);
+      -webkit-transform: translateZ(0);
     }
     .qr-viewer video {
       position: absolute;
@@ -220,6 +222,7 @@
       width: 100%;
       height: 100%;
       object-fit: cover;
+      border-radius: 20px;
     }
     .qr-overlay {
       position: absolute;
@@ -1087,8 +1090,8 @@
   <span class="page-title" id="opdracht-titel" style="top:87px;">Opdracht 1</span>
 
   <!-- Opdracht illustratie: 3-state stop-motion animatie -->
-  <div class="layer" style="left:62px;top:185px;width:710px;height:560px;border-radius:20px;overflow:hidden;">
-    <img id="opdracht-img" src="assets/opdracht-state-1.svg" style="width:710px;height:560px;display:block;">
+  <div class="layer" style="left:62px;top:185px;width:710px;height:560px;border-radius:20px;overflow:hidden;transform:translateZ(0);">
+    <img id="opdracht-img" src="assets/opdracht-state-1.svg" style="width:710px;height:560px;display:block;border-radius:20px;">
   </div>
 
   <!-- Opdracht tekst box -->
@@ -1663,15 +1666,18 @@
     if (overlay) overlay.classList.toggle('visible', isLandscape && (s09 || s10));
   }
 
+  function stepOpdrachtFrame() {
+    opdrachtFrame = (opdrachtFrame + 1) % opdrachtStates.length;
+    const src = opdrachtStates[opdrachtFrame];
+    const img = document.getElementById('opdracht-img');
+    if (img) img.src = src;
+    syncLandscapeImg(src);
+  }
+
   function startOpdrachtAnim() {
     if (opdrachtTimer) return;
-    opdrachtTimer = setInterval(() => {
-      opdrachtFrame = (opdrachtFrame + 1) % opdrachtStates.length;
-      const src = opdrachtStates[opdrachtFrame];
-      const img = document.getElementById('opdracht-img');
-      if (img) img.src = src;
-      syncLandscapeImg(src);
-    }, 600);
+    stepOpdrachtFrame(); // Eerste wissel direct, geen wachttijd
+    opdrachtTimer = setInterval(stepOpdrachtFrame, 600);
   }
 
   function stopOpdrachtAnim() {
@@ -1739,6 +1745,9 @@
     const img = document.getElementById('opdracht-img');
     if (img) img.src = opdrachtStates[0];
     syncLandscapeImg(opdrachtStates[0]);
+
+    // Preload alle frames zodat de animatie direct vloeiend start
+    opdrachtStates.forEach(src => { const p = new Image(); p.src = src; });
 
     // Screen 09 — titel en instructie
     document.getElementById('opdracht-titel').textContent = opdracht.titel;
@@ -1864,7 +1873,7 @@
       loadOpdracht(id);
       if (statusEl) statusEl.textContent = '✓ Opdracht ' + id + ' gevonden!';
       stopCamera();
-      setTimeout(() => navigate('screen-09'), 400);
+      setTimeout(() => navigate('screen-09'), 100);
       return true;
     } else {
       if (statusEl) statusEl.textContent = 'Verkeerde QR-code, probeer opnieuw…';
