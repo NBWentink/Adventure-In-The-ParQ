@@ -186,9 +186,10 @@
     .page-title {
       position: absolute;
       left: 50% !important;
-      top: 68px !important;
-      height: 75px !important;
-      transform: translateX(-50%);
+      top: 105px !important;
+      height: auto !important;
+      min-height: 75px;
+      transform: translate(-50%, -50%);
       width: 475px !important;
       display: flex !important;
       align-items: center;
@@ -203,7 +204,7 @@
       z-index: 10;
       background: #2D6A2F;
       border-radius: 14px;
-      padding: 0 20px;
+      padding: 14px 20px;
       box-sizing: border-box;
     }
 
@@ -272,7 +273,7 @@
       position: absolute;
       background: #d6edd7;
       border-radius: 20px;
-      padding: 27px 34px 105px 35px;
+      padding: 27px 34px 80px 35px;
       text-align: center;
     }
     .adventure-info-card h3 {
@@ -838,7 +839,7 @@
       <path d="M30 10.5H2M2 10.5L12 1M2 10.5L12 20" stroke="#2d6a2f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
-  <span class="page-title">Hoe veel leerlingen<br>gaan er mee?</span>
+  <span class="page-title">Hoe veel leerlingen gaan er mee?</span>
 
   <!-- Counter: interactief HTML-component -->
   <div class="flip-board layer" style="left:137px;top:390px;">
@@ -1023,7 +1024,7 @@
       <path d="M30 10.5H2M2 10.5L12 1M2 10.5L12 20" stroke="#2d6a2f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
-  <span class="page-title">Ga nu op zoek naar de<br>QR-code</span>
+  <span class="page-title">Ga nu op zoek naar de QR-code</span>
 
   <!-- QR pijl illustratie -->
   <div class="layer" style="left:270px;top:354px;width:295px;height:530px;border-radius:12px;overflow:hidden;">
@@ -1265,7 +1266,7 @@
       <path d="M30 10.5H2M2 10.5L12 1M2 10.5L12 20" stroke="#2d6a2f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
-  <span class="page-title">Ga nu op zoek naar de<br>volgende QR-code</span>
+  <span class="page-title">Ga nu op zoek naar de volgende QR-code</span>
 
   <!-- QR pijl illustratie -->
   <div class="layer" style="left:270px;top:354px;width:295px;height:530px;border-radius:12px;overflow:hidden;">
@@ -1343,16 +1344,15 @@
   </div>
 
   <!-- Mascotte met medaille -->
-  <div class="layer" style="left:50%;top:265px;transform:translateX(-50%);width:390px;z-index:2;">
+  <div class="layer" style="left:50%;top:234px;transform:translateX(-50%);width:390px;z-index:2;">
     <img src="assets/mascotte-compleet.png" style="width:390px;height:auto;display:block;">
   </div>
 
   <!-- Tekst + audio box -->
-  <div class="adventure-info-card layer" style="left:62px;top:740px;width:711px;height:auto;min-height:200px;z-index:2;">
-    <h3>Jullie hebben het gedaan!</h3>
+  <div class="adventure-info-card layer" style="left:62px;top:785px;width:711px;height:auto;min-height:150px;z-index:2;">
     <p>Wauw, het is gelukt! We zijn veilig door de jungle gekomen. Zonder jullie hulp had ik dit niet kunnen doen. Ik ben zo trots op jullie! Hier, een medaille als beloning. Geef hem een mooie plek, en tot het volgende avontuur!</p>
     <audio id="audio-compleet" src="assets/opdracht-compleet.mp3"></audio>
-    <div class="audio-player-row" style="position:absolute;left:22px;bottom:22px;right:22px;">
+    <div class="audio-player-row" style="position:absolute;left:22px;bottom:18px;right:22px;">
       <div class="btn-audio" id="btn-audio-compleet" onclick="toggleAudio('audio-compleet','btn-audio-compleet','prog-compleet')">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
           <path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/>
