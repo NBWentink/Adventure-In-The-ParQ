@@ -52,6 +52,8 @@
       width: 100%;
       padding: 6px 8px;
       overflow-x: auto;
+      position: relative;
+      z-index: 9999;
       scrollbar-width: thin;
       scrollbar-color: #555 #1c1c1c;
       flex-shrink: 0;
@@ -760,8 +762,7 @@
 <div class="screen active" id="screen-01">
 
   <!-- Achtergrond park -->
-  <img src="assets/park-bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
-
+  
   <!-- Grond -->
   <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;z-index:2;">
 
@@ -785,8 +786,7 @@
 <div class="screen" id="screen-02">
 
   <!-- Achtergrond park -->
-  <img src="assets/park-bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
-
+  
   <!-- Grond -->
   <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
@@ -847,8 +847,7 @@
 <div class="screen" id="screen-03">
 
   <!-- Achtergrond park -->
-  <img src="assets/park-bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
-
+  
   <!-- Grond -->
   <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
@@ -898,8 +897,7 @@
 <div class="screen" id="screen-04">
 
   <!-- Achtergrond park -->
-  <img src="assets/park-bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
-
+  
   <!-- Grond -->
   <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
@@ -1349,7 +1347,6 @@
 <div class="screen" id="screen-14">
 
   <!-- Jungle achtergrond -->
-  <img src="assets/jungle_bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;">
 
   <!-- Grond -->
   <img src="assets/grond.png" class="layer" style="left:-433px;top:823px;width:1692px;height:1692px;z-index:1;">
@@ -1442,7 +1439,8 @@
   function navigate(screenId) {
     // Wissel de vaste achtergrond mee met het scherm
     const skyImg = document.getElementById('fixed-sky-img');
-    if (skyImg) skyImg.src = screenId === 'screen-14' ? 'assets/jungle_bg.png' : 'assets/park-bg.png';
+    const jungleScreens = ['screen-05','screen-06','screen-07','screen-08','screen-09','screen-10','screen-11','screen-12','screen-13','screen-14'];
+    if (skyImg) skyImg.src = jungleScreens.includes(screenId) ? 'assets/jungle_bg.png' : 'assets/park-bg.png';
 
     const current = document.querySelector('.screen.active');
     const next    = document.getElementById(screenId);
