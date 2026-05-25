@@ -2004,15 +2004,12 @@
     const nav = document.querySelector('.screen-nav');
     const navH = nav.offsetHeight; /* 0 wanneer nav verborgen is */
     const app = document.getElementById('app');
-    const availW = window.innerWidth;
-    const availH = window.innerHeight - navH;
-    /* Math.max: vul het scherm altijd volledig — overshoot wordt geclipped */
-    const scale = Math.max(availW / 834, availH / 1194);
-    const left  = (window.innerWidth  - 834  * scale) / 2;
-    const top   = navH + (availH - 1194 * scale) / 2;
-    app.style.transform = `scale(${scale})`;
-    app.style.left = left + 'px';
-    app.style.top  = top  + 'px';
+    const scaleX = window.innerWidth / 834;
+    const scaleY = (window.innerHeight - navH) / 1194;
+    /* Aparte X/Y schaal: prototype vult altijd precies het hele scherm */
+    app.style.transform = `scale(${scaleX}, ${scaleY})`;
+    app.style.left = '0px';
+    app.style.top  = navH + 'px';
   }
   window.addEventListener('resize', updateScale);
   window.addEventListener('resize', checkLandscape);
