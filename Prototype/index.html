@@ -40,7 +40,7 @@
       width: 834px;
       height: 1194px;
       transform-origin: top left;
-      overflow: hidden;
+      overflow: visible;
       z-index: 1;
     }
 
@@ -81,8 +81,8 @@
       position: absolute;
       top: 0;
       left: 0;
-      background: #b5dced;
-      overflow: hidden;
+      background: transparent;
+      overflow: visible;
       display: none;
     }
     .screen.active { display: block; }
@@ -721,6 +721,11 @@
   </style>
 </head>
 <body>
+
+<!-- Vaste achtergrond buiten #app — vult altijd het volledige scherm, ongeacht schaling -->
+<div id="fixed-sky" style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;">
+  <img id="fixed-sky-img" src="assets/park-bg.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.7;display:block;">
+</div>
 
 <!-- Schermnavigatie (buiten #app zodat het de schaalberekening niet verstoort) -->
 <div class="screen-nav">
@@ -1435,6 +1440,10 @@
   }
 
   function navigate(screenId) {
+    // Wissel de vaste achtergrond mee met het scherm
+    const skyImg = document.getElementById('fixed-sky-img');
+    if (skyImg) skyImg.src = screenId === 'screen-14' ? 'assets/jungle_bg.png' : 'assets/park-bg.png';
+
     const current = document.querySelector('.screen.active');
     const next    = document.getElementById(screenId);
     if (!next || current === next) return;
@@ -2014,15 +2023,6 @@
     app.style.left = left + 'px';
     app.style.top  = navH + 'px';
 
-    /* Achtergrondafbeeldingen (.bg-fill) uitrekken tot ze het volledige viewport vullen */
-    const fillW = window.innerWidth  / scale;
-    const fillH = (window.innerHeight - navH) / scale;
-    document.querySelectorAll('.bg-fill').forEach(el => {
-      el.style.width  = fillW + 'px';
-      el.style.height = fillH + 'px';
-      el.style.left   = -((fillW - 834)  / 2) + 'px';
-      el.style.top    = -((fillH - 1194) / 2) + 'px';
-    });
   }
   window.addEventListener('resize', updateScale);
   window.addEventListener('resize', checkLandscape);
