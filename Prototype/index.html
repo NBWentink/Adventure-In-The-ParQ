@@ -2,7 +2,9 @@
 <html lang="nl">
 <head>
   <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+  <meta name="apple-mobile-web-app-capable" content="yes">
+  <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
   <title>Walk in the ParQ – Prototype</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
@@ -23,7 +25,7 @@
     }
 
     body {
-      background: #b5dced;
+      background: #b5dced; /* matcht luchtkleur — eventuele randpixels zijn onzichtbaar */
       margin: 0;
       padding: 0;
       width: 100%;
@@ -1999,17 +2001,18 @@
   }
 
   function updateScale() {
-    const PADDING = 16;
     const nav = document.querySelector('.screen-nav');
-    const navH = nav.offsetHeight;
+    const navH = nav.offsetHeight; /* 0 wanneer nav verborgen is */
     const app = document.getElementById('app');
-    const availW = window.innerWidth  - PADDING * 2;
-    const availH = window.innerHeight - navH - PADDING * 2;
-    const scale  = Math.min(availW / 834, availH / 1194);
-    const left   = (window.innerWidth - 834 * scale) / 2;
+    const availW = window.innerWidth;
+    const availH = window.innerHeight - navH;
+    /* Math.max: vul het scherm altijd volledig — overshoot wordt geclipped */
+    const scale = Math.max(availW / 834, availH / 1194);
+    const left  = (window.innerWidth  - 834  * scale) / 2;
+    const top   = navH + (availH - 1194 * scale) / 2;
     app.style.transform = `scale(${scale})`;
     app.style.left = left + 'px';
-    app.style.top  = (navH + PADDING) + 'px';
+    app.style.top  = top  + 'px';
   }
   window.addEventListener('resize', updateScale);
   window.addEventListener('resize', checkLandscape);
