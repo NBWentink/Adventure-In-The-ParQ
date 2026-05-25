@@ -103,17 +103,6 @@
       transition: transform 0.6s cubic-bezier(0.4, 0, 0.2, 1);
     }
 
-    .jungle-bg-overlay {
-      position: absolute;
-      inset: 0;
-      background-image: url('assets/Jungle_Achtergrond.png');
-      background-size: auto 100%;
-      background-repeat: repeat-x;
-      opacity: 0;
-      z-index: 0;
-      pointer-events: none;
-      transition: opacity 0.5s;
-    }
 
     .layer { position: absolute; }
 
@@ -1407,7 +1396,6 @@
     if (cls.contains('btn-vorige'))       return true;
     if (cls.contains('btn-volgende'))     return true;
     if (cls.contains('grond-img'))        return true;
-    if (cls.contains('jungle-bg-overlay'))return true;
     if (cls.contains('page-title'))       return true;
     if (cls.contains('progressiebalk'))   return true;
     if (el.tagName === 'IMG') {
@@ -1456,13 +1444,6 @@
       el.style.transform = `translateX(${bgOffset}px)`;
     });
 
-    // Jungle parallax
-    if (jungleActive) {
-      jungleBgOffset += forward ? 100 : -100;
-      document.querySelectorAll('.jungle-bg-overlay').forEach(el => {
-        el.style.backgroundPositionX = `-${jungleBgOffset}px`;
-      });
-    }
 
     // Stop eventuele lopende audio en reset progress
     document.querySelectorAll('audio').forEach(a => {
@@ -1641,15 +1622,6 @@
     }
   }
 
-  // Injecteer jungle-bg-overlay alleen in schermen vanaf 05
-  const JUNGLE_SCREENS = ['screen-05','screen-06','screen-07','screen-09','screen-10','screen-11','screen-12','screen-13'];
-  JUNGLE_SCREENS.forEach(id => {
-    const screen = document.getElementById(id);
-    if (!screen) return;
-    const overlay = document.createElement('div');
-    overlay.className = 'jungle-bg-overlay';
-    screen.insertBefore(overlay, screen.firstChild);
-  });
 
   // ── Avontuur Keuze (scherm 04) ──
   function selectAvontuur(idx) {
@@ -1657,11 +1629,7 @@
     document.querySelectorAll('.avontuur-card').forEach((el, i) => {
       el.classList.toggle('selected', i === idx);
     });
-    // Activeer jungle achtergrond als Jungle Expeditie is gekozen
     jungleActive = idx === 0;
-    document.querySelectorAll('.jungle-bg-overlay').forEach(el => {
-      el.style.opacity = jungleActive ? '0.7' : '0';
-    });
   }
   // Standaard eerste kaart geselecteerd
   selectAvontuur(0);
