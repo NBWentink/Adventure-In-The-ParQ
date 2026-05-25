@@ -722,11 +722,6 @@
 </head>
 <body>
 
-<!-- Achtergrond die altijd het HELE scherm vult, los van de UI-schaling -->
-<div id="bg-cover" style="position:fixed;inset:0;z-index:0;overflow:hidden;">
-  <img src="assets/park-bg.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.7;display:block;">
-</div>
-
 <!-- Schermnavigatie (buiten #app zodat het de schaalberekening niet verstoort) -->
 <div class="screen-nav">
   <button onclick="navigate('screen-01')" id="nav-01">01 Start</button>
@@ -760,7 +755,7 @@
 <div class="screen active" id="screen-01">
 
   <!-- Achtergrond park -->
-  <img src="assets/park-bg.png" class="layer" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
+  <img src="assets/park-bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
 
   <!-- Grond -->
   <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;z-index:2;">
@@ -785,7 +780,7 @@
 <div class="screen" id="screen-02">
 
   <!-- Achtergrond park -->
-  <img src="assets/park-bg.png" class="layer" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
+  <img src="assets/park-bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
 
   <!-- Grond -->
   <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
@@ -847,7 +842,7 @@
 <div class="screen" id="screen-03">
 
   <!-- Achtergrond park -->
-  <img src="assets/park-bg.png" class="layer" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
+  <img src="assets/park-bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
 
   <!-- Grond -->
   <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
@@ -898,7 +893,7 @@
 <div class="screen" id="screen-04">
 
   <!-- Achtergrond park -->
-  <img src="assets/park-bg.png" class="layer" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
+  <img src="assets/park-bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.7;">
 
   <!-- Grond -->
   <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
@@ -1349,7 +1344,7 @@
 <div class="screen" id="screen-14">
 
   <!-- Jungle achtergrond -->
-  <img src="assets/jungle_bg.png" class="layer" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;">
+  <img src="assets/jungle_bg.png" class="layer bg-fill" style="left:0;top:0;width:834px;height:1194px;object-fit:cover;object-position:center top;z-index:0;opacity:0.85;">
 
   <!-- Grond -->
   <img src="assets/grond.png" class="layer" style="left:-433px;top:823px;width:1692px;height:1692px;z-index:1;">
@@ -2018,6 +2013,16 @@
     app.style.transform = `scale(${scale})`;
     app.style.left = left + 'px';
     app.style.top  = navH + 'px';
+
+    /* Achtergrondafbeeldingen (.bg-fill) uitrekken tot ze het volledige viewport vullen */
+    const fillW = window.innerWidth  / scale;
+    const fillH = (window.innerHeight - navH) / scale;
+    document.querySelectorAll('.bg-fill').forEach(el => {
+      el.style.width  = fillW + 'px';
+      el.style.height = fillH + 'px';
+      el.style.left   = -((fillW - 834)  / 2) + 'px';
+      el.style.top    = -((fillH - 1194) / 2) + 'px';
+    });
   }
   window.addEventListener('resize', updateScale);
   window.addEventListener('resize', checkLandscape);
