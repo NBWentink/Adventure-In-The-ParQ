@@ -42,7 +42,7 @@
     }
 
     .screen-nav {
-      display: flex;
+      display: none;
       gap: 6px;
       flex-wrap: nowrap;
       justify-content: flex-start;
@@ -53,6 +53,7 @@
       scrollbar-color: #555 #1c1c1c;
       flex-shrink: 0;
     }
+    .screen-nav.dev-visible { display: flex; }
     .screen-nav::-webkit-scrollbar { height: 4px; }
     .screen-nav::-webkit-scrollbar-track { background: #1c1c1c; }
     .screen-nav::-webkit-scrollbar-thumb { background: #555; border-radius: 2px; }
@@ -762,6 +763,11 @@
     <span>Start een avontuur</span>
   </div>
 
+  <!-- DEV-mode toggle (onzichtbaar voor testers) -->
+  <div onclick="toggleDevMode()" style="position:absolute;left:24px;bottom:24px;z-index:10;width:56px;height:28px;background:rgba(0,0,0,0.18);border-radius:8px;display:flex;align-items:center;justify-content:center;cursor:pointer;" id="dev-btn">
+    <span style="font-family:monospace;font-size:11px;color:rgba(255,255,255,0.45);letter-spacing:1px;">DEV</span>
+  </div>
+
 </div>
 
 <!-- ════════════════════════════════════════════
@@ -1414,6 +1420,14 @@
 
   function contentEls(screen) {
     return Array.from(screen.children).filter(el => !isShared(el));
+  }
+
+  function toggleDevMode() {
+    const nav = document.querySelector('.screen-nav');
+    const btn = document.getElementById('dev-btn');
+    const isVisible = nav.classList.toggle('dev-visible');
+    btn.style.background = isVisible ? 'rgba(245,200,0,0.5)' : 'rgba(0,0,0,0.18)';
+    btn.querySelector('span').style.color = isVisible ? 'rgba(0,0,0,0.7)' : 'rgba(255,255,255,0.45)';
   }
 
   function navigate(screenId) {
