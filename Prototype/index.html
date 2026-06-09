@@ -727,10 +727,14 @@
   <button onclick="navigate('screen-05')" id="nav-05">05 Overzicht</button>
   <button onclick="navigate('screen-06')" id="nav-06">06 Zoek QR</button>
   <button onclick="navigate('screen-07')" id="nav-07">07 Scan QR</button>
-  <button onclick="loadOpdracht(1);navigate('screen-09')" id="nav-09">09 Opdracht 1</button>
-  <button onclick="loadOpdracht(2);navigate('screen-09')">09 Opdracht 2</button>
-  <button onclick="loadOpdracht(3);navigate('screen-09')">09 Opdracht 3</button>
-  <button onclick="loadOpdracht(4);navigate('screen-09')">09 Opdracht 4</button>
+  <button onclick="selectGroep(3);loadOpdracht(1);navigate('screen-09')" id="nav-09">G3 Opdracht 1</button>
+  <button onclick="selectGroep(3);loadOpdracht(2);navigate('screen-09')">G3 Opdracht 2</button>
+  <button onclick="selectGroep(3);loadOpdracht(3);navigate('screen-09')">G3 Opdracht 3</button>
+  <button onclick="selectGroep(3);loadOpdracht(4);navigate('screen-09')">G3 Opdracht 4</button>
+  <button onclick="selectGroep(4);loadOpdracht(1);navigate('screen-09')">G4 Opdracht 1</button>
+  <button onclick="selectGroep(4);loadOpdracht(2);navigate('screen-09')">G4 Opdracht 2</button>
+  <button onclick="selectGroep(4);loadOpdracht(3);navigate('screen-09')">G4 Opdracht 3</button>
+  <button onclick="selectGroep(4);loadOpdracht(4);navigate('screen-09')">G4 Opdracht 4</button>
   <button onclick="navigate('screen-10')" id="nav-10">10 Voltooid</button>
   <button onclick="navigate('screen-11')" id="nav-11">11 Voortgang</button>
   <button onclick="navigate('screen-12')" id="nav-12">12 Zoek QR2</button>
