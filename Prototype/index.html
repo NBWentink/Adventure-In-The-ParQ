@@ -1557,6 +1557,7 @@
 
   // ── Groep Keuze (scherm 02) ──
   function selectGroep(nr) {
+    currentGroep = nr; // bewaar de geselecteerde groep voor loadOpdracht()
     document.querySelectorAll('.groep-circle').forEach(el => el.classList.remove('selected'));
     const circle = document.getElementById('groep-circle-' + nr);
     if (circle) circle.classList.add('selected');
@@ -1687,53 +1688,103 @@
   if (document.getElementById('screen-09').classList.contains('active')) startOpdrachtAnim();
 
   // ── Opdrachten data ──
-  const opdrachten = [
-    {
-      id: 1,
-      titel: 'Opdracht 1',
-      naam: 'Rivier',
-      instructie: 'Oh nee! Er stroomt hier een grote rivier, daar moeten we overheen! Spring 10 keer zo ver als je kan heen en weer!',
-      voltooid: 'Dat hebben jullie goed gedaan! We zijn aan de overkant.',
-      voortgangTekst: 'Jullie zijn goed bezig! Ga door naar de volgende opdracht en help Finn verder in de jungle!',
-      isLaatste: false,
-      states: ['assets/opdracht-state-1.svg', 'assets/opdracht-state-2.svg', 'assets/opdracht-state-3.svg']
-    },
-    {
-      id: 2,
-      titel: 'Opdracht 2',
-      naam: 'Dieren',
-      instructie: 'Horen jullie dat ook? Volgens mij hoor ik een gevaarlijk dier in de bosjes… Stamp 15 keer zo hárd mogelijk als een olifant om het dier weg te jagen!',
-      voltooid: 'Pfieuw… dat ging maar net goed. Jullie hebben goed gestampt waardoor we het dier hebben weggejaagd. Nu kunnen jullie door naar de volgende opdracht!',
-      voortgangTekst: 'Geweldig! Twee opdrachten gedaan. Zoek de volgende QR-code om verder te gaan!',
-      isLaatste: false,
-      states: ['assets/opdracht-2-state-1.png', 'assets/opdracht-2-state-2.png']
-    },
-    {
-      id: 3,
-      titel: 'Opdracht 3',
-      naam: 'Wankele brug',
-      instructie: 'Pas op! Deze brug is niet heel stevig! We moeten erg voorzichtig zijn… Loop 10 stappen op een rechte lijn, met je hakken tegen je tenen en houd je armen wijd!',
-      voltooid: 'Goed gedaan! Jullie hebben je balans goed behouden en zijn veilig aan de overkant gekomen. Ga door naar de volgende opdracht!',
-      voortgangTekst: 'Drie opdrachten gedaan! Nog één te gaan. Zoek de laatste QR-code!',
-      isLaatste: false,
-      states: ['assets/opdracht-3-state-1.png', 'assets/opdracht-3-state-2.png']
-    },
-    {
-      id: 4,
-      titel: 'Opdracht 4',
-      naam: 'Het geheime pad',
-      instructie: 'Dit pad slingert door de jungle. We móeten dit pad wel volgen! Maak 10 zijwaartse sprongen van links naar rechts, en andersom, net alsof je tussen de bomen loopt.',
-      voltooid: 'Wauw! Jullie hebben alle opdrachten voltooid, ga naar de volgende stap... Misschien heb ik nog wel een beloning voor jullie!',
-      voortgangTekst: 'Jullie hebben alle 4 opdrachten voltooid! Het Jungle Avontuur is geslaagd! Goed gedaan, echte Jungle Avonturiers!',
-      isLaatste: true,
-      states: ['assets/opdracht-4-state-1.png', 'assets/opdracht-4-state-2.png', 'assets/opdracht-4-state-3.png']
-    }
-  ];
+  // ── Opdrachten per groep ──
+  const opdrachtenPerGroep = {
+
+    3: [
+      {
+        id: 1,
+        titel: 'Opdracht 1',
+        naam: 'Rivier',
+        instructie: 'Oh nee! Er stroomt hier een grote rivier, daar moeten we overheen! Spring 10 keer zo ver als je kan heen en weer!',
+        voltooid: 'Dat hebben jullie goed gedaan! We zijn aan de overkant.',
+        voortgangTekst: 'Jullie zijn goed bezig! Ga door naar de volgende opdracht en help Finn verder in de jungle!',
+        isLaatste: false,
+        states: ['assets/opdracht-state-1.svg', 'assets/opdracht-state-2.svg', 'assets/opdracht-state-3.svg']
+      },
+      {
+        id: 2,
+        titel: 'Opdracht 2',
+        naam: 'Dieren',
+        instructie: 'Horen jullie dat ook? Volgens mij hoor ik een gevaarlijk dier in de bosjes… Stamp 15 keer zo hárd mogelijk als een olifant om het dier weg te jagen!',
+        voltooid: 'Pfieuw… dat ging maar net goed. Jullie hebben goed gestampt waardoor we het dier hebben weggejaagd. Nu kunnen jullie door naar de volgende opdracht!',
+        voortgangTekst: 'Geweldig! Twee opdrachten gedaan. Zoek de volgende QR-code om verder te gaan!',
+        isLaatste: false,
+        states: ['assets/opdracht-2-state-1.png', 'assets/opdracht-2-state-2.png']
+      },
+      {
+        id: 3,
+        titel: 'Opdracht 3',
+        naam: 'Wankele brug',
+        instructie: 'Pas op! Deze brug is niet heel stevig! We moeten erg voorzichtig zijn… Loop 10 stappen op een rechte lijn, met je hakken tegen je tenen en houd je armen wijd!',
+        voltooid: 'Goed gedaan! Jullie hebben je balans goed behouden en zijn veilig aan de overkant gekomen. Ga door naar de volgende opdracht!',
+        voortgangTekst: 'Drie opdrachten gedaan! Nog één te gaan. Zoek de laatste QR-code!',
+        isLaatste: false,
+        states: ['assets/opdracht-3-state-1.png', 'assets/opdracht-3-state-2.png']
+      },
+      {
+        id: 4,
+        titel: 'Opdracht 4',
+        naam: 'Het geheime pad',
+        instructie: 'Dit pad slingert door de jungle. We móeten dit pad wel volgen! Maak 10 zijwaartse sprongen van links naar rechts, en andersom, net alsof je tussen de bomen loopt.',
+        voltooid: 'Wauw! Jullie hebben alle opdrachten voltooid, ga naar de volgende stap... Misschien heb ik nog wel een beloning voor jullie!',
+        voortgangTekst: 'Jullie hebben alle 4 opdrachten voltooid! Het Jungle Avontuur is geslaagd! Goed gedaan, echte Jungle Avonturiers!',
+        isLaatste: true,
+        states: ['assets/opdracht-4-state-1.png', 'assets/opdracht-4-state-2.png', 'assets/opdracht-4-state-3.png']
+      }
+    ],
+
+    4: [
+      {
+        id: 1,
+        titel: 'Opdracht 1',
+        naam: 'Opdracht 1 — Groep 4',
+        instructie: '[ Tekst opdracht 1 groep 4 — volgt ]',
+        voltooid: '[ Voltooiingstekst opdracht 1 groep 4 — volgt ]',
+        voortgangTekst: '[ Voortgangstekst na opdracht 1 groep 4 — volgt ]',
+        isLaatste: false,
+        states: ['assets/groep4-opdracht-1-state-1.png', 'assets/groep4-opdracht-1-state-2.png']
+      },
+      {
+        id: 2,
+        titel: 'Opdracht 2',
+        naam: 'Opdracht 2 — Groep 4',
+        instructie: '[ Tekst opdracht 2 groep 4 — volgt ]',
+        voltooid: '[ Voltooiingstekst opdracht 2 groep 4 — volgt ]',
+        voortgangTekst: '[ Voortgangstekst na opdracht 2 groep 4 — volgt ]',
+        isLaatste: false,
+        states: ['assets/groep4-opdracht-2-state-1.png', 'assets/groep4-opdracht-2-state-2.png']
+      },
+      {
+        id: 3,
+        titel: 'Opdracht 3',
+        naam: 'Opdracht 3 — Groep 4',
+        instructie: '[ Tekst opdracht 3 groep 4 — volgt ]',
+        voltooid: '[ Voltooiingstekst opdracht 3 groep 4 — volgt ]',
+        voortgangTekst: '[ Voortgangstekst na opdracht 3 groep 4 — volgt ]',
+        isLaatste: false,
+        states: ['assets/groep4-opdracht-3-state-1.png', 'assets/groep4-opdracht-3-state-2.png']
+      },
+      {
+        id: 4,
+        titel: 'Opdracht 4',
+        naam: 'Opdracht 4 — Groep 4',
+        instructie: '[ Tekst opdracht 4 groep 4 — volgt ]',
+        voltooid: '[ Voltooiingstekst opdracht 4 groep 4 — volgt ]',
+        voortgangTekst: '[ Voortgangstekst na opdracht 4 groep 4 — volgt ]',
+        isLaatste: true,
+        states: ['assets/groep4-opdracht-4-state-1.png', 'assets/groep4-opdracht-4-state-2.png']
+      }
+    ]
+
+  };
 
   let currentOpdracht = null;
+  let currentGroep = 3; // wordt gezet door selectGroep()
 
   function loadOpdracht(id) {
-    const opdracht = opdrachten.find(o => o.id === id);
+    const lijst = opdrachtenPerGroep[currentGroep] || opdrachtenPerGroep[3];
+    const opdracht = lijst.find(o => o.id === id);
     if (!opdracht) return;
     currentOpdracht = opdracht;
 
