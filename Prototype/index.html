@@ -1808,10 +1808,11 @@
     document.getElementById('opdracht-instructie').textContent = opdracht.instructie;
 
     // Audio wisselen per opdracht
+    const prefix = currentGroep === 4 ? 'assets/groep4-opdracht-' : 'assets/opdracht-';
     const audioOpdracht = document.getElementById('audio-opdracht');
     if (audioOpdracht) {
       audioOpdracht.pause();
-      audioOpdracht.src = 'assets/opdracht-' + id + '.mp3';
+      audioOpdracht.src = prefix + id + '.mp3';
       audioOpdracht.load();
       const btnSvg = document.querySelector('#btn-audio-opdracht svg');
       if (btnSvg) btnSvg.innerHTML = ICON_PLAY;
@@ -1821,7 +1822,7 @@
     const audioVoltooid = document.getElementById('audio-voltooid');
     if (audioVoltooid) {
       audioVoltooid.pause();
-      audioVoltooid.src = 'assets/opdracht-' + id + '-voltooid.mp3';
+      audioVoltooid.src = prefix + id + '-voltooid.mp3';
       audioVoltooid.load();
       const btnSvg2 = document.querySelector('#btn-audio-voltooid svg');
       if (btnSvg2) btnSvg2.innerHTML = ICON_PLAY;
