@@ -791,18 +791,8 @@
   </div>
   <span class="page-title">met welke klas ga je?</span>
 
-  <!-- Groep 4 (boven, midden) -->
-  <div id="groep-circle-4" class="groep-circle layer" style="left:442px;top:260px;" onclick="selectGroep(4)">
-    <span class="groep-lbl">GROEP</span>
-    <span class="groep-nr">4</span>
-    <span class="groep-leerlingen">19 leerlingen</span>
-    <div class="groep-medals-inner">
-      <img src="assets/medaille.svg"><img src="assets/medaille.svg">
-    </div>
-  </div>
-
-  <!-- Groep 3 (linksonder) -->
-  <div id="groep-circle-3" class="groep-circle layer" style="left:138px;top:260px;" onclick="selectGroep(3)">
+  <!-- Groep 3 (links) -->
+  <div id="groep-circle-3" class="groep-circle layer" style="left:30px;top:280px;" onclick="selectGroep(3)">
     <span class="groep-lbl">GROEP</span>
     <span class="groep-nr">3</span>
     <span class="groep-leerlingen">21 leerlingen</span>
@@ -811,10 +801,18 @@
     </div>
   </div>
 
+  <!-- Groep 4 (rechts) -->
+  <div id="groep-circle-4" class="groep-circle layer" style="left:550px;top:280px;" onclick="selectGroep(4)">
+    <span class="groep-lbl">GROEP</span>
+    <span class="groep-nr">4</span>
+    <span class="groep-leerlingen">19 leerlingen</span>
+    <div class="groep-medals-inner">
+      <img src="assets/medaille.svg"><img src="assets/medaille.svg">
+    </div>
+  </div>
 
-  <!-- Mascottes per groep -->
-  <img id="groep-mascot-3" src="assets/mascotte-groep3.png" class="layer" style="left:148px;bottom:220px;height:490px;width:auto;pointer-events:none;z-index:4;" alt="">
-  <img id="groep-mascot-4" src="assets/mascotte-groep4.png" class="layer" style="left:452px;bottom:220px;height:490px;width:auto;pointer-events:none;z-index:4;" alt="">
+  <!-- Centrale mascotte — wijst naar geselecteerde groep -->
+  <img id="groep-mascot-center" src="assets/mascotte-welkom.png" class="layer" style="left:50%;transform:translateX(-50%);bottom:220px;height:490px;width:auto;pointer-events:none;z-index:4;" alt="">
 
   <!-- Volgende -->
   <div class="btn-volgende layer" style="left:223px;top:1037px;" onclick="navigate('screen-03')">
@@ -1557,6 +1555,11 @@
     document.querySelectorAll('.groep-circle').forEach(el => el.classList.remove('selected'));
     const circle = document.getElementById('groep-circle-' + nr);
     if (circle) circle.classList.add('selected');
+    const mascot = document.getElementById('groep-mascot-center');
+    if (mascot) {
+      if      (nr === 3) mascot.src = 'assets/mascotte-groep3.png';
+      else if (nr === 4) mascot.src = 'assets/mascotte-groep4.png';
+    }
   }
 
   // ── Avontuur data ──
