@@ -812,8 +812,9 @@
   </div>
 
 
-  <!-- Centrale mascotte — staat op de grond, wijst naar geselecteerde cirkel -->
-  <img id="groep-mascot-center" src="assets/Mascotte_Midden.png" alt="">
+  <!-- Mascottes per groep -->
+  <img id="groep-mascot-3" src="assets/mascotte-groep3.png" class="layer" style="left:148px;bottom:220px;height:490px;width:auto;pointer-events:none;z-index:4;" alt="">
+  <img id="groep-mascot-4" src="assets/mascotte-groep4.png" class="layer" style="left:452px;bottom:220px;height:490px;width:auto;pointer-events:none;z-index:4;" alt="">
 
   <!-- Volgende -->
   <div class="btn-volgende layer" style="left:223px;top:1037px;" onclick="navigate('screen-03')">
@@ -1552,17 +1553,10 @@
 
   // ── Groep Keuze (scherm 02) ──
   function selectGroep(nr) {
-    currentGroep = nr; // bewaar de geselecteerde groep voor loadOpdracht()
+    currentGroep = nr;
     document.querySelectorAll('.groep-circle').forEach(el => el.classList.remove('selected'));
     const circle = document.getElementById('groep-circle-' + nr);
     if (circle) circle.classList.add('selected');
-    // Mascotte wijst naar de geselecteerde cirkel
-    const mascot = document.getElementById('groep-mascot-center');
-    if (mascot) {
-      if      (nr === 3) mascot.src = 'assets/Mascotte_Links.png';
-      else if (nr === 4) mascot.src = 'assets/Mascotte_Midden.png';
-      else if (nr === 5) mascot.src = 'assets/Mascotte_Rechts.png';
-    }
   }
 
   // ── Avontuur data ──
