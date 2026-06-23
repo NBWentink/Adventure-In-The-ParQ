@@ -1379,6 +1379,7 @@
   const ICON_PLAY  = `<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>`;
   const ICON_PAUSE = `<rect x="5" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/><rect x="15" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/>`;
   let bgOffset = 0;
+  let groundRotation = 0;
 
   // Klasse toevoegen aan alle achtergrond-afbeeldingen voor smooth transitie
   document.querySelectorAll('img[src*="achtergrond"]').forEach(el => el.classList.add('achtergrond-img'));
@@ -1425,8 +1426,8 @@
     const nextIdx    = SCREEN_ORDER.indexOf(screenId);
     const forward    = nextIdx >= currentIdx;
 
-    // Grond rotatie: vooruit = tegen de klok in (negatief), terug = met de klok mee
-    groundRotation += forward ? -20 : 20;
+    // Grond rotatie: vooruit = met de klok mee, terug = tegen de klok in
+    groundRotation += forward ? 20 : -20;
     document.querySelectorAll('.grond-img').forEach(el => {
       el.style.transform = `rotate(${groundRotation}deg)`;
     });
