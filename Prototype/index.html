@@ -2016,15 +2016,25 @@
     const nav = document.querySelector('.screen-nav');
     const navH = nav.offsetHeight; /* 0 wanneer nav verborgen is */
     const app = document.getElementById('app');
+    const sky = document.getElementById('fixed-sky');
     const scaleX = window.innerWidth / 834;
     const scaleY = (window.innerHeight - navH) / 1194;
     /* Uniforme schaling: UI-elementen blijven in proportie */
     const scale = Math.min(scaleX, scaleY);
-    const left  = (window.innerWidth - 834 * scale) / 2;
-    app.style.transform = `scale(${scale})`;
-    app.style.left = left + 'px';
-    app.style.top  = navH + 'px';
-
+    /* Horizontaal centreren */
+    const offsetX = Math.max(0, (window.innerWidth - 834 * scale) / 2);
+    app.style.transform = `translateX(${offsetX}px) scale(${scale})`;
+    app.style.top = navH + 'px';
+    /* Achtergrond meebewegen: exact achter het geschaalde app-vlak */
+    if (sky) {
+      sky.style.left   = offsetX + 'px';
+      sky.style.top    = navH + 'px';
+      sky.style.width  = (834 * scale) + 'px';
+      sky.style.height = (1194 * scale) + 'px';
+      sky.style.right  = 'auto';
+      sky.style.bottom = 'auto';
+    }
+    document.body.style.height = window.innerHeight + 'px';
   }
   window.addEventListener('resize', updateScale);
   window.addEventListener('resize', checkLandscape);
