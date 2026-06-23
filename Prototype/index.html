@@ -1382,7 +1382,7 @@
   let groundRotation = 0;
 
   // Klasse toevoegen aan alle achtergrond-afbeeldingen voor smooth transitie
-  document.querySelectorAll('img[src*="achtergrond"]').forEach(el => el.classList.add('achtergrond-img'));
+  document.querySelectorAll('img[src*="achtergrond"]:not(.grond-img)').forEach(el => el.classList.add('achtergrond-img'));
 
   function isShared(el) {
     if (!el || el.nodeType !== 1) return true;
@@ -2017,13 +2017,12 @@
     const nav = document.querySelector('.screen-nav');
     const navH = nav.offsetHeight; /* 0 wanneer nav verborgen is */
     const app = document.getElementById('app');
-    const scaleX = window.innerWidth / 834;
-    const scaleY = (window.innerHeight - navH) / 1194;
-    /* Uniforme schaling: UI-elementen blijven in proportie */
-    const scale = Math.min(scaleX, scaleY);
-    /* Horizontaal centreren zodat de achtergrond gelijkmatig achter de app valt */
-    const offsetX = Math.max(0, (window.innerWidth - 834 * scale) / 2);
-    app.style.transform = `translateX(${offsetX}px) scale(${scale})`;
+    const availW = window.innerWidth;
+    const availH = window.innerHeight - navH;
+    const scale  = Math.min(availW / 834, availH / 1194);
+    const offsetX = Math.max(0, (availW - 834  * scale) / 2);
+    const offsetY = Math.max(0, (availH - 1194 * scale) / 2);
+    app.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
     app.style.top = navH + 'px';
     document.body.style.height = window.innerHeight + 'px';
   }
