@@ -5,14 +5,14 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
   <meta name="apple-mobile-web-app-capable" content="yes">
   <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-  <title>Adventure in the ParQ – Prototype</title>
+  <title>Walk in the ParQ – Prototype</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@400;500;600&display=swap" rel="stylesheet">
   <style>
     @font-face {
       font-family: 'Thumpa';
-      src: url('assets/lettertypes/Thumpa.otf') format('opentype');
+      src: url('assets/Thumpa.otf') format('opentype');
       font-display: swap;
     }
     /* SF Pro is het ingebouwde systeemfont op Apple-apparaten */
@@ -317,18 +317,18 @@
     }
     .sf-clock {
       width: 20px; height: 20px;
-      -webkit-mask-image: url('assets/ui/sfsymbol_clock.png');
-      mask-image: url('assets/ui/sfsymbol_clock.png');
+      -webkit-mask-image: url('assets/sfsymbol_clock.png');
+      mask-image: url('assets/sfsymbol_clock.png');
     }
     .sf-person2 {
       width: 26px; height: 19px;
-      -webkit-mask-image: url('assets/ui/sfsymbol_person_2_fill.png');
-      mask-image: url('assets/ui/sfsymbol_person_2_fill.png');
+      -webkit-mask-image: url('assets/sfsymbol_person_2_fill.png');
+      mask-image: url('assets/sfsymbol_person_2_fill.png');
     }
     .sf-qrcode {
       width: 20px; height: 20px;
-      -webkit-mask-image: url('assets/ui/sfsymbol_mappin_ellipse.png');
-      mask-image: url('assets/ui/sfsymbol_mappin_ellipse.png');
+      -webkit-mask-image: url('assets/sfsymbol_mappin_ellipse.png');
+      mask-image: url('assets/sfsymbol_mappin_ellipse.png');
     }
 
     /* ─── SCREEN 03 FLIP COUNTER ─── */
@@ -639,7 +639,6 @@
       font-size: 24px;
       color: #000;
       line-height: 1.4;
-      text-align: center;
     }
 
     /* ── Voortgang checkmark dots ── */
@@ -716,7 +715,7 @@
 
 <!-- Vaste achtergrond buiten #app — vult altijd het volledige scherm, ongeacht schaling -->
 <div id="fixed-sky" style="position:fixed;inset:0;z-index:0;pointer-events:none;overflow:hidden;">
-  <img id="fixed-sky-img" src="assets/achtergronden/park-bg.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.7;display:block;">
+  <img id="fixed-sky-img" src="assets/park-bg.png" style="width:100%;height:100%;object-fit:cover;object-position:center top;opacity:0.7;display:block;">
 </div>
 
 <!-- Schermnavigatie (buiten #app zodat het de schaalberekening niet verstoort) -->
@@ -758,13 +757,13 @@
   <!-- Achtergrond park -->
   
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;z-index:2;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;z-index:2;">
 
   <!-- Banner / Logo -->
-  <img src="assets/ui/banner.svg" class="layer" style="left:96px;top:38px;width:642px;height:170px;z-index:3;">
+  <img src="assets/banner.svg" class="layer" style="left:96px;top:38px;width:642px;height:170px;z-index:3;">
 
   <!-- Mascotte -->
-  <img src="assets/mascottes/mascotte-welkom.png" class="layer" style="left:145px;top:220px;width:450px;height:auto;z-index:3;">
+  <img src="assets/mascotte-welkom.png" class="layer" style="left:145px;top:220px;width:450px;height:auto;z-index:3;">
 
   <!-- Knop: Start een avontuur -->
   <div class="btn-start layer" style="left:223px;top:1037px;z-index:4;" onclick="navigate('screen-02')">
@@ -782,7 +781,7 @@
   <!-- Achtergrond park -->
   
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Header: Vorige + Titel -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-01')">
@@ -798,7 +797,7 @@
     <span class="groep-nr">3</span>
     <span class="groep-leerlingen">21 leerlingen</span>
     <div class="groep-medals-inner">
-      <img src="assets/ui/medaille.svg"><img src="assets/ui/medaille.svg"><img src="assets/ui/medaille.svg">
+      <img src="assets/medaille.svg"><img src="assets/medaille.svg"><img src="assets/medaille.svg">
     </div>
   </div>
 
@@ -808,12 +807,12 @@
     <span class="groep-nr">4</span>
     <span class="groep-leerlingen">19 leerlingen</span>
     <div class="groep-medals-inner">
-      <img src="assets/ui/medaille.svg"><img src="assets/ui/medaille.svg">
+      <img src="assets/medaille.svg"><img src="assets/medaille.svg">
     </div>
   </div>
 
   <!-- Centrale mascotte — wijst naar geselecteerde groep -->
-  <img id="groep-mascot-center" src="assets/mascottes/mascotte-welkom.png" class="layer" style="left:50%;transform:translateX(-50%);bottom:220px;height:490px;width:auto;pointer-events:none;z-index:4;" alt="">
+  <img id="groep-mascot-center" src="assets/mascotte-welkom.png" class="layer" style="left:50%;transform:translateX(-50%);bottom:220px;height:490px;width:auto;pointer-events:none;z-index:4;" alt="">
 
   <!-- Volgende -->
   <div class="btn-volgende layer" style="left:223px;top:1037px;" onclick="navigate('screen-03')">
@@ -833,7 +832,7 @@
   <!-- Achtergrond park -->
   
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Header -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-02')">
@@ -844,7 +843,7 @@
   <span class="page-title">Hoe veel leerlingen gaan er mee?</span>
 
   <!-- Counter: interactief HTML-component -->
-  <div class="flip-board layer" style="left:143px;top:390px;">
+  <div class="flip-board layer" style="left:137px;top:390px;">
     <button class="flip-btn" ontouchstart="changeCount(-1);event.preventDefault();" onclick="changeCount(-1)"><span>−</span></button>
     <div class="flip-tiles">
       <div class="flip-digit" id="fd-tens">
@@ -883,7 +882,7 @@
   <!-- Achtergrond park -->
   
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Header -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-03')">
@@ -895,7 +894,7 @@
 
   <!-- Avontuur kaart 1: Jungle Expeditie -->
   <div id="avcard-0" class="avontuur-card layer" style="left:62px;top:184px;width:710px;height:225px;" onclick="selectAvontuur(0)">
-    <div class="avcard-img" style="background-image:url('assets/achtergronden/Jungle_Achtergrond.png');"></div>
+    <div class="avcard-img" style="background-image:url('assets/Jungle_Achtergrond.png');"></div>
     <div class="avcard-body">
       <div class="avcard-title">Jungle Expeditie</div>
       <div class="avcard-desc">Jullie zijn ontdekkingsreizigers in de jungle! Spring over rivieren en stamp als een olifant om Finn door de jungle heen te helpen! Maar pas op voor de wilde dieren...</div>
@@ -908,7 +907,7 @@
 
   <!-- Avontuur kaart 2: Eiland Tocht -->
   <div id="avcard-1" class="avontuur-card layer" style="left:62px;top:424px;width:710px;height:225px;" onclick="selectAvontuur(1)">
-    <div class="avcard-img" style="background-image:url('assets/achtergronden/Eiland_Achtergrond.png');"></div>
+    <div class="avcard-img" style="background-image:url('assets/Eiland_Achtergrond.png');"></div>
     <div class="avcard-body">
       <div class="avcard-title">Eiland Tocht</div>
       <div class="avcard-desc">Een mysterieus eiland roept! Steek de zee over en ontdek de geheimen van het eiland. Maak de oversteek zo snel mogelijk!</div>
@@ -921,7 +920,7 @@
 
   <!-- Avontuur kaart 3: Schat Zoeken -->
   <div id="avcard-2" class="avontuur-card layer" style="left:62px;top:664px;width:710px;height:225px;" onclick="selectAvontuur(2)">
-    <div class="avcard-img" style="background-image:url('assets/achtergronden/Schat_Achtergrond.png');"></div>
+    <div class="avcard-img" style="background-image:url('assets/Schat_Achtergrond.png');"></div>
     <div class="avcard-body">
       <div class="avcard-title">Schat Zoeken</div>
       <div class="avcard-desc">Ergens in het bos verbergt zich een schat! Volg de aanwijzingen, los de puzzels op en vind de schatkist als eerste.</div>
@@ -948,7 +947,7 @@
 <div class="screen" id="screen-05">
 
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Header -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-04')">
@@ -960,15 +959,15 @@
 
   <!-- Avontuur hero-afbeelding (dynamisch op basis van keuze scherm 04) -->
   <div class="layer" style="left:62px;top:198px;width:711px;height:326px;border-radius:20px;overflow:hidden;box-shadow:5px 5px 0 rgba(0,0,0,0.25);">
-    <img id="avontuur-hero-img" src="assets/achtergronden/Jungle_Achtergrond.png" class="avontuur-hero-img">
+    <img id="avontuur-hero-img" src="assets/Jungle_Achtergrond.png" class="avontuur-hero-img">
     <div class="swing-wrap">
       <div class="swing-vine-ext"></div>
-      <img class="swing-mascot" src="assets/mascottes/mascotte-slingerend.png" alt="">
+      <img class="swing-mascot" src="assets/mascotte-slingerend.png" alt="">
     </div>
   </div>
 
   <!-- Badges rij: duur + groepen (dynamisch) -->
-  <div class="layer" style="left:50%;transform:translateX(-50%);top:549px;display:flex;gap:24px;align-items:center;">
+  <div class="layer" style="left:243px;top:549px;display:flex;gap:24px;align-items:center;">
     <div class="badge" style="min-width:180px;">
       <span class="sf-icon sf-clock" style="width:28px;height:28px;"></span>
       <span id="adv-duration">30 MIN</span>
@@ -983,7 +982,7 @@
   <div class="adventure-info-card layer" style="left:62px;top:641px;width:711px;height:325px;">
     <h3 id="adv-title">Jungle Expeditie</h3>
     <p id="adv-desc">Jullie zijn ontdekkingsreizigers in de jungle. Help mij door de jungle te komen door te springen over rivieren en de kust veilig te houden. Maar pas op voor de gevaarlijke dieren... Ga je mee?</p>
-    <audio id="audio-avontuur" src="assets/audio/jungle-avontuur.mp3"></audio>
+    <audio id="audio-avontuur" src="assets/jungle-avontuur.mp3"></audio>
     <div class="audio-player-row" style="position:absolute;left:22px;bottom:22px;right:22px;">
       <div class="btn-audio" id="btn-audio-avontuur" onclick="toggleAudio('audio-avontuur','btn-audio-avontuur','prog-avontuur')">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
@@ -1016,7 +1015,7 @@
   <!-- Achtergrond bos -->
 
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Header -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-05')">
@@ -1028,7 +1027,7 @@
 
   <!-- QR pijl illustratie -->
   <div class="layer" style="left:270px;top:354px;width:295px;height:530px;border-radius:12px;overflow:hidden;">
-    <img src="assets/ui/qr-arrow-06.svg" style="width:295px;height:530px;display:block;">
+    <img src="assets/qr-arrow-06.svg" style="width:295px;height:530px;display:block;">
   </div>
 
   <!-- Knop: scan de qr-code -->
@@ -1049,7 +1048,7 @@
   <!-- Achtergrond bos -->
 
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Header -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-06')">
@@ -1057,17 +1056,17 @@
       <path d="M30 10.5H2M2 10.5L12 1M2 10.5L12 20" stroke="#2d6a2f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
-  <span class="page-title">Scan de QR-code</span>
+  <span class="page-title">Scan de QR code</span>
 
   <!-- QR scanner viewfinder -->
   <div class="qr-viewer layer" id="qr-viewer-07" style="left:92px;top:250px;">
     <video id="qr-video-07" autoplay playsinline muted></video>
-    <img src="assets/ui/qr-overlay.png" class="qr-overlay">
+    <img src="assets/qr-overlay.png" class="qr-overlay">
     <span class="qr-status" id="qr-status-07">Camera starten…</span>
   </div>
 
   <!-- Mascotte wijst naar camera -->
-  <img src="assets/mascottes/Mascotte_Links.png" class="layer" style="left:560px;top:900px;width:250px;height:auto;z-index:3;">
+  <img src="assets/Mascotte_Links.png" class="layer" style="left:560px;top:900px;width:250px;height:auto;z-index:3;">
 
 </div>
 
@@ -1079,7 +1078,7 @@
   <!-- Achtergrond bos -->
 
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Progressiebalk (4 opdrachten) -->
   <div class="progressiebalk layer" style="left:50%;transform:translateX(-50%);top:147px;">
@@ -1099,7 +1098,7 @@
 
   <!-- Opdracht illustratie: 3-state stop-motion animatie -->
   <div class="layer" style="left:0px;top:185px;width:834px;height:580px;border-radius:20px;box-shadow:5px 5px 0 rgba(0,0,0,0.25);overflow:hidden;">
-    <img id="opdracht-img" src="assets/opdrachten/groep3/opdracht1/state-1.png" style="width:100%;height:100%;display:block;object-fit:fill;">
+    <img id="opdracht-img" src="assets/opdracht-1-state-1.png" style="width:100%;height:100%;display:block;object-fit:fill;">
   </div>
 
   <!-- Opdracht tekst box -->
@@ -1138,7 +1137,7 @@
   <!-- Achtergrond bos -->
 
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Vorige (alleen, geen paginatitel) -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-09')">
@@ -1150,7 +1149,7 @@
   <!-- Voltooiing banner met dynamisch opdrachtnummer -->
   <div class="layer" style="left:141px;top:131px;width:552px;height:147px;">
     <!-- Banner-vorm (pijluiteinden links/rechts) -->
-    <img src="assets/ui/banner-voltooid.svg" style="width:552px;height:147px;display:block;position:absolute;top:0;left:0;">
+    <img src="assets/banner-voltooid.svg" style="width:552px;height:147px;display:block;position:absolute;top:0;left:0;">
     <!-- Geel vlak over ingebakken SVG-tekst -->
     <div style="position:absolute;left:80px;top:7px;width:393px;height:114px;background:#F5C800;border-radius:4px;"></div>
     <!-- HTML tekst overlay — uitgelijnd op het gele vlak -->
@@ -1162,7 +1161,7 @@
 
   <!-- Voltooiing illustratie (mascotte voltooid) -->
   <div class="layer" style="left:167px;top:295px;width:500px;height:440px;overflow:hidden;display:flex;align-items:center;justify-content:center;">
-    <img src="assets/mascottes/mascotte-voltooid.png" style="height:440px;width:auto;display:block;">
+    <img src="assets/mascotte-voltooid.png" style="height:440px;width:auto;display:block;">
   </div>
 
   <!-- Voltooiing tekst box -->
@@ -1201,7 +1200,7 @@
   <!-- Achtergrond bos -->
 
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Header -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-10')">
@@ -1213,7 +1212,7 @@
 
   <!-- Kaart (map) (710×533) -->
   <div class="layer" style="left:62px;top:215px;width:710px;height:533px;border-radius:20px;overflow:hidden;box-shadow:5px 5px 0 rgba(0,0,0,0.25);">
-    <img src="assets/ui/map.svg" style="width:710px;height:533px;display:block;">
+    <img src="assets/map.svg" style="width:710px;height:533px;display:block;">
   </div>
 
   <!-- Checkmark bolletjes op de kaart -->
@@ -1253,7 +1252,7 @@
   <!-- Achtergrond bos -->
 
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Header -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-11')">
@@ -1265,7 +1264,7 @@
 
   <!-- QR pijl illustratie -->
   <div class="layer" style="left:270px;top:354px;width:295px;height:530px;border-radius:12px;overflow:hidden;">
-    <img src="assets/ui/qr-arrow-12.svg" style="width:295px;height:530px;display:block;">
+    <img src="assets/qr-arrow-12.svg" style="width:295px;height:530px;display:block;">
   </div>
 
   <!-- Knop: scan de qr-code -->
@@ -1286,7 +1285,7 @@
   <!-- Achtergrond bos -->
 
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
+  <img src="assets/grond.png" class="layer grond-img" style="left:-433px;top:700px;width:1692px;height:1692px;">
 
   <!-- Header -->
   <div class="btn-vorige layer" style="left:62px;" onclick="navigate('screen-12')">
@@ -1294,17 +1293,17 @@
       <path d="M30 10.5H2M2 10.5L12 1M2 10.5L12 20" stroke="#2d6a2f" stroke-width="5" stroke-linecap="round" stroke-linejoin="round"/>
     </svg>
   </div>
-  <span class="page-title">Scan de QR-code</span>
+  <span class="page-title">Scan de QR code</span>
 
   <!-- QR scanner viewfinder -->
   <div class="qr-viewer layer" id="qr-viewer-13" style="left:92px;top:250px;">
     <video id="qr-video-13" autoplay playsinline muted></video>
-    <img src="assets/ui/qr-overlay.png" class="qr-overlay">
+    <img src="assets/qr-overlay.png" class="qr-overlay">
     <span class="qr-status" id="qr-status-13">Camera starten…</span>
   </div>
 
   <!-- Mascotte wijst naar camera -->
-  <img src="assets/mascottes/Mascotte_Links.png" class="layer" style="left:560px;top:900px;width:250px;height:auto;z-index:3;">
+  <img src="assets/Mascotte_Links.png" class="layer" style="left:560px;top:900px;width:250px;height:auto;z-index:3;">
 
   <!-- Volgende (terug naar start) -->
   <div class="btn-volgende layer" style="left:223px;top:1037px;" onclick="navigate('screen-01')">
@@ -1324,11 +1323,11 @@
   <!-- Jungle achtergrond -->
 
   <!-- Grond -->
-  <img src="assets/achtergronden/grond.png" class="layer" style="left:-433px;top:823px;width:1692px;height:1692px;z-index:1;">
+  <img src="assets/grond.png" class="layer" style="left:-433px;top:823px;width:1692px;height:1692px;z-index:1;">
 
   <!-- Banner -->
   <div class="layer" style="left:141px;top:100px;width:552px;height:147px;z-index:2;">
-    <img src="assets/ui/banner-voltooid.svg" style="width:552px;height:147px;display:block;position:absolute;top:0;left:0;">
+    <img src="assets/banner-voltooid.svg" style="width:552px;height:147px;display:block;position:absolute;top:0;left:0;">
     <div style="position:absolute;left:80px;top:7px;width:393px;height:114px;background:#F5C800;border-radius:4px;"></div>
     <div style="position:absolute;left:80px;top:7px;width:393px;height:114px;display:flex;flex-direction:column;align-items:center;justify-content:center;gap:0px;">
       <span style="font-family:'Thumpa',sans-serif;font-size:36px;color:#2d6a2f;text-transform:uppercase;letter-spacing:1px;line-height:1.1;">Avontuur</span>
@@ -1338,13 +1337,13 @@
 
   <!-- Mascotte met medaille -->
   <div class="layer" style="left:50%;top:234px;transform:translateX(-50%);width:390px;z-index:2;">
-    <img src="assets/mascottes/mascotte-compleet.png" style="width:390px;height:auto;display:block;">
+    <img src="assets/mascotte-compleet.png" style="width:390px;height:auto;display:block;">
   </div>
 
   <!-- Tekst + audio box -->
   <div class="adventure-info-card layer" style="left:62px;top:785px;width:711px;height:auto;min-height:150px;z-index:2;">
     <p>Wauw, het is gelukt! We zijn veilig door de jungle gekomen. Zonder jullie hulp had ik dit niet kunnen doen. Ik ben zo trots op jullie! Hier, een medaille als beloning. Geef hem een mooie plek, en tot het volgende avontuur!</p>
-    <audio id="audio-compleet" src="assets/audio/opdracht-compleet.mp3"></audio>
+    <audio id="audio-compleet" src="assets/opdracht-compleet.mp3"></audio>
     <div class="audio-player-row" style="position:absolute;left:22px;bottom:18px;right:22px;">
       <div class="btn-audio" id="btn-audio-compleet" onclick="toggleAudio('audio-compleet','btn-audio-compleet','prog-compleet')">
         <svg width="34" height="34" viewBox="0 0 24 24" fill="none">
@@ -1379,10 +1378,9 @@
   const ICON_PLAY  = `<path d="M11 5L6 9H2v6h4l5 4V5z" fill="#2d6a2f"/><path d="M15.54 8.46a5 5 0 0 1 0 7.07" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/><path d="M19.07 4.93a10 10 0 0 1 0 14.14" stroke="#2d6a2f" stroke-width="2.2" stroke-linecap="round" fill="none"/>`;
   const ICON_PAUSE = `<rect x="5" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/><rect x="15" y="4" width="4" height="16" rx="1.5" fill="#2d6a2f"/>`;
   let bgOffset = 0;
-  let groundRotation = 0;
 
   // Klasse toevoegen aan alle achtergrond-afbeeldingen voor smooth transitie
-  document.querySelectorAll('img[src*="achtergrond"]:not(.grond-img)').forEach(el => el.classList.add('achtergrond-img'));
+  document.querySelectorAll('img[src*="achtergrond"]').forEach(el => el.classList.add('achtergrond-img'));
 
   function isShared(el) {
     if (!el || el.nodeType !== 1) return true;
@@ -1415,7 +1413,7 @@
     // Wissel de vaste achtergrond mee met het scherm
     const skyImg = document.getElementById('fixed-sky-img');
     const jungleScreens = ['screen-05','screen-06','screen-07','screen-08','screen-09','screen-10','screen-11','screen-12','screen-13','screen-14'];
-    if (skyImg) skyImg.src = jungleScreens.includes(screenId) ? 'assets/achtergronden/jungle_bg.png' : 'assets/achtergronden/park-bg.png';
+    if (skyImg) skyImg.src = jungleScreens.includes(screenId) ? 'assets/jungle_bg.png' : 'assets/park-bg.png';
 
     const current = document.querySelector('.screen.active');
     const next    = document.getElementById(screenId);
@@ -1426,8 +1424,8 @@
     const nextIdx    = SCREEN_ORDER.indexOf(screenId);
     const forward    = nextIdx >= currentIdx;
 
-    // Grond rotatie: vooruit = met de klok mee, terug = tegen de klok in
-    groundRotation += forward ? 20 : -20;
+    // Grond rotatie: vooruit = tegen de klok in (negatief), terug = met de klok mee
+    groundRotation += forward ? -20 : 20;
     document.querySelectorAll('.grond-img').forEach(el => {
       el.style.transform = `rotate(${groundRotation}deg)`;
     });
@@ -1559,8 +1557,8 @@
     if (circle) circle.classList.add('selected');
     const mascot = document.getElementById('groep-mascot-center');
     if (mascot) {
-      if      (nr === 3) mascot.src = 'assets/mascottes/mascotte-groep3.png';
-      else if (nr === 4) mascot.src = 'assets/mascottes/mascotte-groep4.png';
+      if      (nr === 3) mascot.src = 'assets/mascotte-groep3.png';
+      else if (nr === 4) mascot.src = 'assets/mascotte-groep4.png';
     }
   }
 
@@ -1571,21 +1569,21 @@
       desc: 'Jullie zijn ontdekkingsreizigers in de jungle. Help mij door de jungle te komen door te springen over rivieren en de kust veilig te houden. Maar pas op voor de gevaarlijke dieren... Ga je mee?',
       duration: '30 MIN',
       groups: '8',
-      scene: 'assets/achtergronden/Jungle_Achtergrond.png'
+      scene: 'assets/Jungle_Achtergrond.png'
     },
     {
       title: 'Eiland Tocht',
       desc: 'Een mysterieus eiland liegt voor jullie neus! Steek de zee over, ontdek de verborgen grotten en vind het geheim van het eiland. Pas op voor de wilde golven en maak de oversteek zo snel mogelijk!',
       duration: '45 MIN',
       groups: '6',
-      scene: 'assets/achtergronden/Eiland_Achtergrond.png'
+      scene: 'assets/Eiland_Achtergrond.png'
     },
     {
       title: 'Schat Zoeken',
       desc: 'Ergens in het bos verbergt zich een schat! Volg de aanwijzingen, los de puzzels op en vind de schatkist voor iemand anders dat doet. Jullie zijn de enigen die dit kunnen redden!',
       duration: '60 MIN',
       groups: '10',
-      scene: 'assets/achtergronden/Schat_Achtergrond.png'
+      scene: 'assets/Schat_Achtergrond.png'
     }
   ];
   let selectedAvontuur = 0;
@@ -1640,9 +1638,9 @@
 
   // ── Opdracht Stop-Motion (scherm 09) ──
   let opdrachtStates = [
-    'assets/opdrachten/groep3/opdracht1/state-1.png',
-    'assets/opdrachten/groep3/opdracht1/state-2.png',
-    'assets/opdrachten/groep3/opdracht1/state-3.png'
+    'assets/opdracht-1-state-1.png',
+    'assets/opdracht-1-state-2.png',
+    'assets/opdracht-1-state-3.png'
   ];
   let opdrachtFrame = 0;
   let opdrachtTimer = null;
@@ -1694,7 +1692,7 @@
         voltooid: 'Dat hebben jullie goed gedaan! We zijn aan de overkant.',
         voortgangTekst: 'Jullie zijn goed bezig! Ga door naar de volgende opdracht en help Finn verder in de jungle!',
         isLaatste: false,
-        states: ['assets/opdrachten/groep3/opdracht1/state-1.png', 'assets/opdrachten/groep3/opdracht1/state-2.png', 'assets/opdrachten/groep3/opdracht1/state-3.png']
+        states: ['assets/opdracht-1-state-1.png', 'assets/opdracht-1-state-2.png', 'assets/opdracht-1-state-3.png']
       },
       {
         id: 2,
@@ -1704,7 +1702,7 @@
         voltooid: 'Pfieuw… dat ging maar net goed. Jullie hebben goed gestampt waardoor we het dier hebben weggejaagd. Nu kunnen jullie door naar de volgende opdracht!',
         voortgangTekst: 'Geweldig! Twee opdrachten gedaan. Zoek de volgende QR-code om verder te gaan!',
         isLaatste: false,
-        states: ['assets/opdrachten/groep3/opdracht2/state-1.png', 'assets/opdrachten/groep3/opdracht2/state-2.png']
+        states: ['assets/opdracht-2-state-1.png', 'assets/opdracht-2-state-2.png']
       },
       {
         id: 3,
@@ -1714,7 +1712,7 @@
         voltooid: 'Goed gedaan! Jullie hebben je balans goed behouden en zijn veilig aan de overkant gekomen. Ga door naar de volgende opdracht!',
         voortgangTekst: 'Drie opdrachten gedaan! Nog één te gaan. Zoek de laatste QR-code!',
         isLaatste: false,
-        states: ['assets/opdrachten/groep3/opdracht3/state-1.png', 'assets/opdrachten/groep3/opdracht3/state-2.png']
+        states: ['assets/opdracht-3-state-1.png', 'assets/opdracht-3-state-2.png']
       },
       {
         id: 4,
@@ -1724,7 +1722,7 @@
         voltooid: 'Wauw! Jullie hebben alle opdrachten voltooid, ga naar de volgende stap... Misschien heb ik nog wel een beloning voor jullie!',
         voortgangTekst: 'Jullie hebben alle 4 opdrachten voltooid! Het Jungle Avontuur is geslaagd! Goed gedaan, echte Jungle Avonturiers!',
         isLaatste: true,
-        states: ['assets/opdrachten/groep3/opdracht4/state-1.png', 'assets/opdrachten/groep3/opdracht4/state-2.png', 'assets/opdrachten/groep3/opdracht4/state-3.png']
+        states: ['assets/opdracht-4-state-1.png', 'assets/opdracht-4-state-2.png', 'assets/opdracht-4-state-3.png']
       }
     ],
 
@@ -1737,7 +1735,7 @@
         voltooid: 'Goedzo! Jullie zijn allemaal veilig over de boomstam heen gekomen. Nu kunnen jullie door naar de volgende opdracht!',
         voortgangTekst: 'Jullie zijn goed bezig! Ga door naar de volgende opdracht en help Finn verder in de jungle!',
         isLaatste: false,
-        states: ['assets/opdrachten/groep4/opdracht1/state-1.png', 'assets/opdrachten/groep4/opdracht1/state-2.png', 'assets/opdrachten/groep4/opdracht1/state-3.png']
+        states: ['assets/groep4-opdracht-1-state-1.png', 'assets/groep4-opdracht-1-state-2.png', 'assets/groep4-opdracht-1-state-3.png']
       },
       {
         id: 2,
@@ -1747,7 +1745,7 @@
         voltooid: 'Dat ging goed! Jullie zijn aan de overkant. Nu kunnen we door naar de volgende opdracht!',
         voortgangTekst: 'Geweldig! Twee opdrachten gedaan. Zoek de volgende QR-code om verder te gaan!',
         isLaatste: false,
-        states: ['assets/opdrachten/groep4/opdracht2/state-1.png', 'assets/opdrachten/groep4/opdracht2/state-2.png', 'assets/opdrachten/groep4/opdracht2/state-3.png', 'assets/opdrachten/groep4/opdracht2/state-4.png', 'assets/opdrachten/groep4/opdracht2/state-5.png']
+        states: ['assets/groep4-opdracht-2-state-1.png', 'assets/groep4-opdracht-2-state-2.png', 'assets/groep4-opdracht-2-state-3.png', 'assets/groep4-opdracht-2-state-4.png', 'assets/groep4-opdracht-2-state-5.png']
       },
       {
         id: 3,
@@ -1757,7 +1755,7 @@
         voltooid: 'Ik zag bijna niet meer het verschil tussen jullie en de echte flamingo. Goed gedaan! Ga nu door naar de volgende opdracht.',
         voortgangTekst: 'Drie opdrachten gedaan! Nog één te gaan. Zoek de laatste QR-code!',
         isLaatste: false,
-        states: ['assets/opdrachten/groep4/opdracht3/state-1.png', 'assets/opdrachten/groep4/opdracht3/state-2.png']
+        states: ['assets/groep4-opdracht-3-state-1.png', 'assets/groep4-opdracht-3-state-2.png']
       },
       {
         id: 4,
@@ -1767,7 +1765,7 @@
         voltooid: 'Pfoe, dat was niet makkelijk. Maar jullie hebben het goed gedaan, ga door naar het einde!',
         voortgangTekst: 'Jullie hebben alle 4 opdrachten voltooid! Het Park Avontuur is geslaagd! Goed gedaan, echte Park Avonturiers!',
         isLaatste: true,
-        states: ['assets/opdrachten/groep4/opdracht4/state-1.png', 'assets/opdrachten/groep4/opdracht4/state-2.png', 'assets/opdrachten/groep4/opdracht4/state-3.png', 'assets/opdrachten/groep4/opdracht4/state-4.png', 'assets/opdrachten/groep4/opdracht4/state-5.png']
+        states: ['assets/groep4-opdracht-4-state-1.png', 'assets/groep4-opdracht-4-state-2.png', 'assets/groep4-opdracht-4-state-3.png', 'assets/groep4-opdracht-4-state-4.png', 'assets/groep4-opdracht-4-state-5.png']
       }
     ]
 
@@ -1798,11 +1796,11 @@
     document.getElementById('opdracht-instructie').textContent = opdracht.instructie;
 
     // Audio wisselen per opdracht
-    const prefix = currentGroep === 4 ? 'assets/opdrachten/groep4/opdracht' : 'assets/opdrachten/groep3/opdracht';
+    const prefix = currentGroep === 4 ? 'assets/groep4-opdracht-' : 'assets/opdracht-';
     const audioOpdracht = document.getElementById('audio-opdracht');
     if (audioOpdracht) {
       audioOpdracht.pause();
-      audioOpdracht.src = prefix + id + '/instructie.mp3';
+      audioOpdracht.src = prefix + id + '.mp3';
       audioOpdracht.load();
       const btnSvg = document.querySelector('#btn-audio-opdracht svg');
       if (btnSvg) btnSvg.innerHTML = ICON_PLAY;
@@ -1812,7 +1810,7 @@
     const audioVoltooid = document.getElementById('audio-voltooid');
     if (audioVoltooid) {
       audioVoltooid.pause();
-      audioVoltooid.src = prefix + id + '/voltooid.mp3';
+      audioVoltooid.src = prefix + id + '-voltooid.mp3';
       audioVoltooid.load();
       const btnSvg2 = document.querySelector('#btn-audio-voltooid svg');
       if (btnSvg2) btnSvg2.innerHTML = ICON_PLAY;
@@ -2017,14 +2015,15 @@
     const nav = document.querySelector('.screen-nav');
     const navH = nav.offsetHeight; /* 0 wanneer nav verborgen is */
     const app = document.getElementById('app');
-    const availW = window.innerWidth;
-    const availH = window.innerHeight - navH;
-    const scale  = Math.min(availW / 834, availH / 1194);
-    const offsetX = Math.max(0, (availW - 834  * scale) / 2);
-    const offsetY = Math.max(0, (availH - 1194 * scale) / 2);
-    app.style.transform = `translate(${offsetX}px, ${offsetY}px) scale(${scale})`;
-    app.style.top = navH + 'px';
-    document.body.style.height = window.innerHeight + 'px';
+    const scaleX = window.innerWidth / 834;
+    const scaleY = (window.innerHeight - navH) / 1194;
+    /* Uniforme schaling: UI-elementen blijven in proportie */
+    const scale = Math.min(scaleX, scaleY);
+    const left  = (window.innerWidth - 834 * scale) / 2;
+    app.style.transform = `scale(${scale})`;
+    app.style.left = left + 'px';
+    app.style.top  = navH + 'px';
+
   }
   window.addEventListener('resize', updateScale);
   window.addEventListener('resize', checkLandscape);
